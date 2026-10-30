@@ -1,0 +1,119 @@
+# Hardware specs used by the performance model.
+#
+# Every number carries a source URL and a `verified` flag:
+#   verified: true    -> read from the cited official NVIDIA / Groq document on 2026-10-24
+#   verified: derived -> arithmetic on verified numbers (the derivation is in `note`)
+#   verified: false   -> NOT found in an official source; a placeholder assumption
+#
+# Units: bytes, bytes/s, FLOP/s (or OP/s for int8). All peak compute numbers are
+# DENSE (NVIDIA datasheets quote sparse numbers for H100/B200; we halve them as
+# the footnotes instruct).
+
+devices:
+
+  rtx5090:
+    name: "NVIDIA GeForce RTX 5090"
+    kind: gpu
+    memory_type: GDDR7
+    memory_capacity: {value: 32.0e9, source: "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/", verified: true, note: "32 GB GDDR7"}
+    memory_bandwidth: {value: 1792.0e9, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "1792 GB/s (whitepaper Appendix A, Table 3)"}
+    onchip_sram: {value: 100663296, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "L2 cache 98304 KB; SM shared memory/registers not counted"}
+    interconnect_bandwidth: {value: 64.0e9, source: null, verified: false, note: "No NVLink. Placeholder = PCIe Gen5 x16 ~64 GB/s per direction (not from an NVIDIA RTX 5090 document)"}
+    peak_flops:
+      fp16: {value: 209.5e12, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "FP16/BF16 tensor, FP32 accumulate, dense (419 with FP16 accumulate)"}
+      bf16: {value: 209.5e12, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "BF16 tensor, FP32 accumulate, dense"}
+      fp8: {value: 419.0e12, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "FP8 tensor, FP32 accumulate, dense"}
+      int8: {value: 838.0e12, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "INT8 tensor TOPS, dense"}
+      fp4: {value: 1676.0e12, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "FP4 tensor, dense (3352 'AI TOPS' is the sparse figure)"}
+      fp32: {value: 104.8e12, source: "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf", verified: true, note: "non-tensor FP32"}
+
+  h100_sxm:
+    name: "NVIDIA H100 SXM (80 GB)"
+    kind: gpu
+    memory_type: HBM3
+    memory_capacity: {value: 80.0e9, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: true, note: "80 GB"}
+    memory_bandwidth: {value: 3.35e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: true, note: "3.35 TB/s"}
+    onchip_sram: {value: null, source: null, verified: false, note: "L2 size not taken from the product page; unused by the model"}
+    interconnect_bandwidth: {value: 900.0e9, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: true, note: "NVLink 900 GB/s (total, both directions). Used as-is; per-direction is half"}
+    peak_flops:
+      fp16: {value: 989.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: derived, note: "1,979 TFLOPS 'with sparsity' / 2"}
+      bf16: {value: 989.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: derived, note: "1,979 TFLOPS 'with sparsity' / 2"}
+      fp8: {value: 1979.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: derived, note: "3,958 TFLOPS 'with sparsity' / 2"}
+      int8: {value: 1979.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: derived, note: "3,958 TOPS 'with sparsity' / 2"}
+      fp32: {value: 67.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: true, note: "non-tensor FP32"}
+
+  h100_pcie:
+    name: "NVIDIA H100 PCIe (80 GB)"
+    kind: gpu
+    memory_type: HBM2e
+    memory_capacity: {value: 80.0e9, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "80 GB (added for the H100 kit; check against the datasheet)"}
+    memory_bandwidth: {value: 2.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "2 TB/s per the H100 PCIe datasheet column (added for the H100 kit; check)"}
+    onchip_sram: {value: null, source: null, verified: false, note: "unused"}
+    interconnect_bandwidth: {value: 64.0e9, source: null, verified: false, note: "PCIe Gen5 x16 placeholder"}
+    peak_flops:
+      fp16: {value: 756.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "1,513 TFLOPS 'with sparsity' / 2 (check)"}
+      bf16: {value: 756.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "as fp16"}
+      fp8: {value: 1513.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "3,026 'with sparsity' / 2 (check)"}
+      int8: {value: 1513.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "as fp8"}
+      fp32: {value: 51.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "non-tensor FP32 (check)"}
+
+  h100_nvl:
+    name: "NVIDIA H100 NVL (94 GB)"
+    kind: gpu
+    memory_type: HBM3
+    memory_capacity: {value: 94.0e9, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "94 GB (added for the H100 kit; check)"}
+    memory_bandwidth: {value: 3.9e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "3.9 TB/s (check)"}
+    onchip_sram: {value: null, source: null, verified: false, note: "unused"}
+    interconnect_bandwidth: {value: 600.0e9, source: null, verified: false, note: "NVLink bridge placeholder"}
+    peak_flops:
+      fp16: {value: 835.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "1,671 'with sparsity' / 2 (check)"}
+      bf16: {value: 835.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "as fp16"}
+      fp8: {value: 1670.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "3,341 'with sparsity' / 2 (check)"}
+      int8: {value: 1670.5e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "as fp8"}
+      fp32: {value: 60.0e12, source: "https://www.nvidia.com/en-us/data-center/h100/", verified: false, note: "non-tensor FP32 (check)"}
+
+  b200:
+    name: "NVIDIA B200 (per GPU, from 8-GPU HGX/DGX B200 totals)"
+    kind: gpu
+    memory_type: HBM3e
+    memory_capacity: {value: 180.0e9, source: "https://www.nvidia.com/en-us/data-center/dgx-b200/", verified: derived, note: "1,440 GB total / 8 GPUs"}
+    memory_bandwidth: {value: 8.0e12, source: "https://www.nvidia.com/en-us/data-center/dgx-b200/", verified: derived, note: "64 TB/s HBM3e total / 8 GPUs"}
+    onchip_sram: {value: null, source: null, verified: false, note: "not used"}
+    interconnect_bandwidth: {value: 1.8e12, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: true, note: "NVLink GPU-to-GPU 1.8 TB/s"}
+    peak_flops:
+      fp16: {value: 2.25e15, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: derived, note: "HGX B200 FP16/BF16 36 PFLOPS sparse -> 18 dense / 8 GPUs"}
+      bf16: {value: 2.25e15, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: derived, note: "as fp16"}
+      fp8: {value: 4.5e15, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: derived, note: "72 PFLOPS sparse -> 36 dense / 8"}
+      int8: {value: 4.5e15, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: derived, note: "72 POPS sparse -> 36 dense / 8"}
+      fp4: {value: 9.0e15, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: derived, note: "FP4 72 PFLOPS dense / 8"}
+      fp32: {value: 75.0e12, source: "https://www.nvidia.com/en-us/data-center/hgx/", verified: derived, note: "600 TFLOPS / 8"}
+
+  a100_80gb_sxm:
+    name: "NVIDIA A100 80GB SXM"
+    kind: gpu
+    memory_type: HBM2e
+    memory_capacity: {value: 80.0e9, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "80 GB HBM2e"}
+    memory_bandwidth: {value: 2039.0e9, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "2,039 GB/s (40 GB SXM: 1,555 GB/s)"}
+    onchip_sram: {value: null, source: null, verified: false, note: "not used"}
+    interconnect_bandwidth: {value: 600.0e9, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "NVLink 600 GB/s"}
+    peak_flops:
+      fp16: {value: 312.0e12, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "dense (624 with sparsity)"}
+      bf16: {value: 312.0e12, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "dense"}
+      int8: {value: 624.0e12, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "dense TOPS (1248 with sparsity)"}
+      fp32: {value: 19.5e12, source: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf", verified: true, note: "non-tensor FP32"}
+
+  groq_lpu_v1:
+    name: "SRAM chip modeled on public GroqChip v1 numbers"
+    kind: sram_chip
+    memory_type: on-die SRAM (no external DRAM)
+    memory_capacity: {value: 230.0e6, source: "https://groq.com/wp-content/uploads/2022/10/GroqChip%E2%84%A2-Processor-Product-Brief-v1.5.pdf", verified: true, note: "230 MB SRAM per chip (MB taken as 1e6 bytes)"}
+    memory_bandwidth: {value: 80.0e12, source: "https://groq.com/wp-content/uploads/2022/10/GroqChip%E2%84%A2-Processor-Product-Brief-v1.5.pdf", verified: true, note: "'Up to 80 TB/s on-die memory bandwidth'"}
+    onchip_sram: {value: 230.0e6, source: "https://groq.com/wp-content/uploads/2022/10/GroqChip%E2%84%A2-Processor-Product-Brief-v1.5.pdf", verified: true, note: "same as memory_capacity"}
+    interconnect_bandwidth: {value: 200.0e9, source: null, verified: false, note: "HYPOTHETICAL. Groq brief lists 16 RealScale chip-to-chip links but gives no bandwidth. 200 GB/s/chip is an assumption; the sweep varies it"}
+    interconnect_hop_latency: {value: 1.0e-6, source: null, verified: false, note: "HYPOTHETICAL per-hop latency (1 us)"}
+    peak_flops:
+      fp16: {value: 188.0e12, source: "https://groq.com/wp-content/uploads/2022/10/GroqChip%E2%84%A2-Processor-Product-Brief-v1.5.pdf", verified: true, note: "188 TFLOPS FP16 @900 MHz"}
+      int8: {value: 750.0e12, source: "https://groq.com/wp-content/uploads/2022/10/GroqChip%E2%84%A2-Processor-Product-Brief-v1.5.pdf", verified: true, note: "750 TOPS INT8 @900 MHz"}
+
+# Default per-hop latency for GPU interconnects (NVLink/PCIe) - HYPOTHETICAL, not from a datasheet.
+default_hop_latency: {value: 2.0e-6, source: null, verified: false, note: "assumed 2 us per collective step"}

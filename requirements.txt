@@ -1,0 +1,7 @@
+numpy
+scipy
+pandas
+matplotlib
+pyyaml
+pytest
+# on the GPU box only: torch, vllm (installed by gpu/run_all.sh)

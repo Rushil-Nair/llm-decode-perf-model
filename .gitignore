@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+build/
+bench/llamacpp/work/
+bench/llamacpp/results_h100*/
+results_*.tar.gz
+*.nsys-rep
+*.ncu-rep
+*.sqlite
