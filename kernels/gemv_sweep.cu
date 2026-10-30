@@ -1,4 +1,4 @@
-// gemv_sweep.cu: the q4gemv.cu v2/v3/v4 kernels with the two latency-hiding knobs exposed.
+// gemv_sweep.cu: the q4gemv.cu v2/v3/v4 kernels (plus v5) with the two latency-hiding knobs exposed.
 //
 // Same weight format as q4gemv.cu: symmetric int4, groups of 32 along K, one fp16 scale per group,
 // w = (q - 8) * scale; row n is K/2 bytes, a group is 16 bytes (one uint4 load) + a 2-byte scale.
@@ -19,6 +19,14 @@
 //   v2<ILP>  one warp per row, x read from global memory (L1-cached), one-warp-per-row grid
 //   v3<ILP>  x staged once per block in shared memory, persistent grid (rows grid-strided)
 //   v4<ILP>  v3 + streaming (__ldcs, evict-first) weight loads
+//   v5<ILP>  v4 with a cheaper dequantize: no int->float conversions. Each 4-bit value is OR-ed into the
+//            mantissa of the fp16 number 1024 (0x6400), so the half equals 1024 + q exactly; one HSUB2
+//            of 1032 gives q - 8 for two weights at once, and HFMA2 multiplies them by two activations.
+//            x is staged in shared memory in a permuted order that matches the nibble pairs. Products
+//            are summed in fp16 within a 32-weight group (16 HFMA2 per lane) and in fp32 across groups,
+//            so its correctness tolerance is 2e-3 instead of 1e-4 (reported as "tol").
+//            Built to test the three-ceiling model's prediction (perfsim/gemv_model.py) that the H100
+//            kernels are limited by SM instruction throughput, not memory.
 //
 // Shapes (Qwen3-8B): q_proj 4096x4096, gate_proj 12288x4096, down_proj 4096x12288 (N x K).
 // Correctness: every config is checked against a CPU double-precision reference (as in q4gemv.cu).
@@ -149,6 +157,75 @@ __global__ void gemv_v4(const uint8_t* __restrict__ W, const half* __restrict__ 
     gemv_persistent<ILP, true>(W, S, x, y, N, K);
 }
 
+// ---------------------------------------------------------------------------------------------- v5
+// Activation order in shared memory for v5: for every chunk of 8 activations (one 32-bit word of
+// weights), xs[4c + m] = (x[8c + m], x[8c + m + 4]) for m = 0..3. A word w holds bytes b0..b3 and byte b
+// holds k = 2b (low nibble) and k = 2b + 1 (high nibble), so
+//   ((w >> 0)  & 0x000F000F) -> (k0, k4)    ((w >> 4)  & 0x000F000F) -> (k1, k5)
+//   ((w >> 8)  & 0x000F000F) -> (k2, k6)    ((w >> 12) & 0x000F000F) -> (k3, k7)
+// and pair m of the word lines up with xs[4c + m].
+__device__ __forceinline__ float group_dot_v5(uint4 v, const half2* xp) {
+    const uint32_t w[4] = {v.x, v.y, v.z, v.w};
+    const half2 bias = __halves2half2(__ushort_as_half((unsigned short)0x6408),
+                                      __ushort_as_half((unsigned short)0x6408));   // 1032 = 1024 + 8
+    half2 acc = __halves2half2(__ushort_as_half((unsigned short)0), __ushort_as_half((unsigned short)0));
+    #pragma unroll
+    for (int i = 0; i < 4; ++i) {
+        #pragma unroll
+        for (int m = 0; m < 4; ++m) {
+            const uint32_t t = ((w[i] >> (4 * m)) & 0x000F000Fu) | 0x64006400u;   // (1024 + q_lo, 1024 + q_hi)
+            half2 h;
+            memcpy(&h, &t, sizeof(h));
+            acc = __hfma2(__hsub2(h, bias), xp[i * 4 + m], acc);                 // (q - 8) * x, two at a time
+        }
+    }
+    const float2 f = __half22float2(acc);
+    return f.x + f.y;
+}
+
+template <int ILP>
+__device__ __forceinline__ float lane_row_dot_v5(const uint4* __restrict__ w4, const half* __restrict__ s,
+                                                 const half2* x2, int G, int lane) {
+    float acc = 0.f;
+    int g = lane;
+    #pragma unroll 1
+    for (; g + 32 * (ILP - 1) < G; g += 32 * ILP) {
+        uint4 wv[ILP];
+        half sv[ILP];
+        #pragma unroll
+        for (int i = 0; i < ILP; ++i) {
+            wv[i] = __ldcs(w4 + g + 32 * i);
+            sv[i] = s[g + 32 * i];
+        }
+        #pragma unroll
+        for (int i = 0; i < ILP; ++i)
+            acc += __half2float(sv[i]) * group_dot_v5(wv[i], x2 + (g + 32 * i) * 16);
+    }
+    for (; g < G; g += 32)
+        acc += __half2float(s[g]) * group_dot_v5(__ldcs(w4 + g), x2 + g * 16);
+    return acc;
+}
+
+template <int ILP>
+__global__ void gemv_v5(const uint8_t* __restrict__ W, const half* __restrict__ S,
+                        const half* __restrict__ x, float* __restrict__ y, int N, int K) {
+    extern __shared__ half2 xs[];
+    for (int i = threadIdx.x; i < K / 2; i += blockDim.x) {        // permuted staging (see above)
+        const int c = i >> 2, m = i & 3;
+        xs[i] = __halves2half2(x[8 * c + m], x[8 * c + m + 4]);
+    }
+    __syncthreads();
+    const int lane = threadIdx.x & 31, warp = threadIdx.x / 32, warps = blockDim.x / 32;
+    const int G = K / GROUP;
+    #pragma unroll 1
+    for (int n = blockIdx.x * warps + warp; n < N; n += gridDim.x * warps) {
+        const uint4* w4 = reinterpret_cast<const uint4*>(W + (size_t)n * (K / 2));
+        float acc = lane_row_dot_v5<ILP>(w4, S + (size_t)n * G, xs, G, lane);
+        acc = warp_sum(acc);
+        if (lane == 0) y[n] = acc;
+    }
+}
+
 using KernelFn = void (*)(const uint8_t*, const half*, const half*, float*, int, int);
 
 struct KernelVariant { const char* name; int ilp; bool persistent; KernelFn fn; };
@@ -156,6 +233,7 @@ static const KernelVariant VARIANTS[] = {
     {"v2", 1, false, gemv_v2<1>}, {"v2", 2, false, gemv_v2<2>}, {"v2", 4, false, gemv_v2<4>},
     {"v3", 1, true, gemv_v3<1>},  {"v3", 2, true, gemv_v3<2>},  {"v3", 4, true, gemv_v3<4>},
     {"v4", 1, true, gemv_v4<1>},  {"v4", 2, true, gemv_v4<2>},  {"v4", 4, true, gemv_v4<4>},
+    {"v5", 1, true, gemv_v5<1>},  {"v5", 2, true, gemv_v5<2>},  {"v5", 4, true, gemv_v5<4>},
 };
 
 struct Shape { const char* name; int N, K; };
@@ -268,7 +346,7 @@ int main(int argc, char** argv) {
         for (const auto& v : VARIANTS) {
             if (!setup_ok) break;
             int max_bps = 0;
-            const size_t base_smem = v.persistent ? x_smem : 0;   // v3/v4 need x in smem; v2 needs none
+            const size_t base_smem = v.persistent ? x_smem : 0;   // v3/v4/v5 need x in smem; v2 needs none
             try { CK(cudaOccupancyMaxActiveBlocksPerMultiprocessor(&max_bps, v.fn, block, base_smem)); }
             catch (const std::exception& e) { fprintf(stderr, "ERROR occupancy %s: %s\n", v.name, e.what()); ++failures; continue; }
             int last_achieved = -1;
@@ -279,7 +357,7 @@ int main(int argc, char** argv) {
                     if (bps < 1 || bps == last_achieved) continue;
                     last_achieved = bps;
                     // v2: one warp per row (grid may exceed the resident blocks; the rest queue up).
-                    // v3/v4: persistent grid of exactly the resident blocks (capped by the number of rows).
+                    // v3/v4/v5: persistent grid of exactly the resident blocks (capped by the number of rows).
                     const int row_blocks = (N + warps_per_block - 1) / warps_per_block;
                     const int grid = v.persistent ? std::max(1, std::min(row_blocks, bps * sms)) : row_blocks;
                     // Warps actually resident per SM on average (less than bps*warps if the grid is small).
@@ -299,7 +377,8 @@ int main(int argc, char** argv) {
                         else maxabs = std::max(maxabs, std::fabs((double)hy[n] - ref[n]));
                     }
                     const double maxrel = finite ? maxabs / (refmax > 0 ? refmax : 1) : INFINITY;
-                    const bool ok = finite && maxrel < 1e-4;
+                    const double tol = strcmp(v.name, "v5") == 0 ? 2e-3 : 1e-4;  // v5 sums in fp16 within a group
+                    const bool ok = finite && maxrel < tol;
 
                     double us = 0.0;
                     if (!ncu_mode) {
@@ -320,10 +399,10 @@ int main(int argc, char** argv) {
                            "\"us\":%.3f,\"bytes\":%zu,\"GBps\":%.1f,\"ok\":%s,"
                            "\"gpu\":\"%s\",\"shape\":\"%s\",\"requested_blocks_per_sm\":%d,\"threads_per_block\":%d,"
                            "\"grid\":%d,\"warps_per_sm_eff\":%.3f,\"smem_bytes\":%zu,\"regs\":%d,\"sm_count\":%d,"
-                           "\"l2_bytes\":%zu,\"copies\":%d,\"max_rel_err\":%.3e,\"mode\":\"%s\",\"ncu_launch\":%d}\n",
+                           "\"l2_bytes\":%zu,\"copies\":%d,\"max_rel_err\":%.3e,\"tol\":%.0e,\"mode\":\"%s\",\"ncu_launch\":%d}\n",
                            v.name, v.ilp, bps, bps * warps_per_block, N, K, us, qbytes, gbps, ok ? "true" : "false",
                            prop.name, sh.name, want, block, grid, warps_eff, smem, fa.numRegs, sms,
-                           l2, copies, maxrel, ncu_mode ? "ncu" : "timed", ncu_mode ? this_launch : -1);
+                           l2, copies, maxrel, tol, ncu_mode ? "ncu" : "timed", ncu_mode ? this_launch : -1);
                     fflush(stdout);
                 } catch (const std::exception& e) {
                     ++failures;

@@ -1,0 +1,6 @@
+v2_gate_proj_ilp2_b6 88 518.0
+v3_gate_proj_ilp2_b6 108 1465.0
+v4_gate_proj_ilp2_b6 125 1525.6
+v5_gate_proj_ilp4_b4 148 1603.6
+v4_q_proj_ilp2_b4 48 1079.4
+v5_q_proj_ilp4_b5 74 1128.3

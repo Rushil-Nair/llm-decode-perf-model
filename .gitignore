@@ -8,3 +8,4 @@ results_*.tar.gz
 *.nsys-rep
 *.ncu-rep
 *.sqlite
+!data_kernels/**/ncu_deep/*.ncu-rep

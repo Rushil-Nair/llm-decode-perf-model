@@ -1,0 +1,1 @@
+GPU NVIDIA H100 80GB HBM3, 132 SMs, L2 52.4 MB, cc 9.0, block 256, mode ncu

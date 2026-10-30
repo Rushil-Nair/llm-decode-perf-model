@@ -1,0 +1,158 @@
+{
+ "v5_ilp4": {
+  "instr_per_group": 84.75,
+  "mix_per_group": {
+   "HFMA2": 19.75,
+   "HADD2": 19.0,
+   "LOP3": 16.0,
+   "SHF": 12.0,
+   "MOV": 7.5,
+   "LDS": 4.0,
+   "LDG": 2.0,
+   "FADD": 1.0
+  }
+ },
+ "v5_ilp2": {
+  "instr_per_group": 85.0,
+  "mix_per_group": {
+   "HFMA2": 20.0,
+   "HADD2": 19.0,
+   "LOP3": 16.0,
+   "SHF": 12.0,
+   "MOV": 5.5,
+   "LDS": 4.0,
+   "LDG": 2.0,
+   "IMAD": 1.0
+  }
+ },
+ "v5_ilp1": {
+  "instr_per_group": 87.0,
+  "mix_per_group": {
+   "HFMA2": 20.0,
+   "HADD2": 19.0,
+   "LOP3": 16.0,
+   "SHF": 12.0,
+   "MOV": 6.0,
+   "LDS": 4.0,
+   "IADD": 4.0,
+   "LDG": 2.0
+  }
+ },
+ "v4_ilp4": {
+  "instr_per_group": 206.5,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 28.25,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0,
+   "FADD": 16.0
+  }
+ },
+ "v4_ilp2": {
+  "instr_per_group": 208.5,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 28.5,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0,
+   "FADD": 16.0
+  }
+ },
+ "v4_ilp1": {
+  "instr_per_group": 210.0,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 32.0,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0,
+   "FADD": 16.0
+  }
+ },
+ "v3_ilp4": {
+  "instr_per_group": 206.5,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 28.25,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0,
+   "FADD": 16.0
+  }
+ },
+ "v3_ilp2": {
+  "instr_per_group": 208.5,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 28.5,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0,
+   "FADD": 16.0
+  }
+ },
+ "v3_ilp1": {
+  "instr_per_group": 210.0,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 32.0,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0,
+   "FADD": 16.0
+  }
+ },
+ "v2_ilp4": {
+  "instr_per_group": 219.5,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 28.75,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "LDG": 18.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0
+  }
+ },
+ "v2_ilp2": {
+  "instr_per_group": 221.0,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "I2FP": 32.0,
+   "IADD": 29.0,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "LDG": 18.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0
+  }
+ },
+ "v2_ilp1": {
+  "instr_per_group": 222.0,
+  "mix_per_group": {
+   "HADD2": 33.0,
+   "IADD": 32.0,
+   "I2FP": 32.0,
+   "LOP3": 28.0,
+   "SHF": 24.0,
+   "LDG": 18.0,
+   "FFMA": 17.0,
+   "FMUL": 16.0
+  }
+ }
+}
