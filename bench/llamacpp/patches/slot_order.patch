@@ -1,0 +1,28 @@
+diff --git a/tools/server/server-context.cpp b/tools/server/server-context.cpp
+index a18b7542c..c565c0d56 100644
+--- a/tools/server/server-context.cpp
++++ b/tools/server/server-context.cpp
+@@ -2478,12 +2478,17 @@ private:
+             }
+         }
+ 
+-        std::stable_sort(free_slots.begin(), free_slots.end(), [](const server_slot * a, const server_slot * b) {
+-            if ((a->prompt.n_tokens() == 0) != (b->prompt.n_tokens() == 0)) {
+-                return a->prompt.n_tokens() == 0;
+-            }
+-            return a->t_last_used < b->t_last_used;
+-        });
++        // with one KV stream per slot, llama_decode only puts sequences with consecutive ids into one
++        // forward pass (split_equal with sequential = true): keep the free slots in id order so that
++        // the busy slots stay next to each other, otherwise each decode step is split into several passes
++        if (params_base.kv_unified) {
++            std::stable_sort(free_slots.begin(), free_slots.end(), [](const server_slot * a, const server_slot * b) {
++                if ((a->prompt.n_tokens() == 0) != (b->prompt.n_tokens() == 0)) {
++                    return a->prompt.n_tokens() == 0;
++                }
++                return a->t_last_used < b->t_last_used;
++            });
++        }
+ 
+         free_slots.resize(std::min(free_slots.size(), n_slots_needed));
+ 
