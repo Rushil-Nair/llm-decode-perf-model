@@ -1,0 +1,4 @@
+commit=7182ef71e6d5dd0c8ea76486fac134fcd25025d4
+arch=90
+gpu=NVIDIA H100 80GB HBM3
+date=2026-10-29T22:05:10Z

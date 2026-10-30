@@ -1,0 +1,14 @@
+== [0 min] gpu_tag=rtx5090
+== [0 min] nvcc: /usr/local/cuda/bin/nvcc
+== [0 min] nsight compute counters available: false
+== [0 min] stage micro: start
+== [0 min] stage micro: done
+== [0 min] stage vllm: start
+== [23 min] stage vllm: done
+== [23 min] stage ops: start
+== [23 min] stage ops: done
+== [23 min] stage calib: start
+== [23 min] stage calib: done
+== [23 min] stage llamacpp: start
+== [41 min] stage llamacpp: done
+== [41 min] all stages finished

@@ -1,0 +1,44 @@
+[21:34:29] nvcc: /usr/local/cuda/bin/nvcc (Build cuda_13.2.r13.2/compiler.37953736_0)
+[21:34:29] GPU: NVIDIA H100 80GB HBM3, 615.71.09 cc=90
+[21:34:31] built pointer_chase (-arch=native)
+Compiling entry function '_Z5chasePKjjPy' for 'sm_90'
+Used 12 registers, used 0 barriers
+Compiling entry function '_Z12scatter_nextPjPKjj' for 'sm_90'
+Used 10 registers, used 0 barriers
+[21:34:33] built stream_bw (-arch=native)
+Compiling entry function '_Z11stream_readILi8EEvPK5uint4mPj' for 'sm_90'
+Used 32 registers, used 0 barriers
+Compiling entry function '_Z11stream_readILi4EEvPK5uint4mPj' for 'sm_90'
+Used 32 registers, used 0 barriers
+Compiling entry function '_Z11stream_readILi2EEvPK5uint4mPj' for 'sm_90'
+Used 25 registers, used 0 barriers
+Compiling entry function '_Z11stream_readILi1EEvPK5uint4mPj' for 'sm_90'
+Used 16 registers, used 0 barriers
+[21:34:38] built gemv_sweep (-arch=native)
+Compiling entry function '_Z7gemv_v4ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 43 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v4ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 40 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v4ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 37 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v3ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 42 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v3ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 40 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v3ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 37 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v2ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 32 registers, used 0 barriers
+Compiling entry function '_Z7gemv_v2ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 36 registers, used 0 barriers
+Compiling entry function '_Z7gemv_v2ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 32 registers, used 0 barriers
+[21:34:38] running pointer_chase (timeout 1200s)
+[21:34:41] pointer_chase: 33 JSON records
+[21:34:41] running stream_bw (timeout 1200s)
+[21:34:42] stream_bw: 249 JSON records
+[21:34:42] running gemv_sweep (timeout 1800s)
+[21:34:44] gemv_sweep: 168 JSON records
+[21:34:46] ncu: /usr/local/cuda/bin/ncu  sudo: no  counters_ok: false
+[21:34:46] ERROR ncu_counters: GPU performance counters not accessible to ncu (see ncu_probe.txt); skipped ncu
+[21:34:47] done; results in /root/llm-perfsim/data/h100_sxm

@@ -1,0 +1,56 @@
+
+== [0s] 0. checks
+NVIDIA H100 80GB HBM3, 615.71.09, 81559 MiB, 9.0
+CUDA arch: 90
+free disk at /root/llm-perfsim/bench/llamacpp/work: 173 GB
+
+== [0s] 1. apt packages
+all present
+cmake version 3.28.3
+Build cuda_13.2.r13.2/compiler.37953736_0
+
+== [0s] 2. python packages
+all present
+
+== [5s] 3. llama.cpp source @ 7182ef71
+llama.cpp: applied diag_counter.patch
+llama.cpp-fix: applied diag_counter.patch
+llama.cpp-fix: applied slot_order.patch
+ src/llama-context.cpp | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ src/llama-context.cpp           | 14 ++++++++++++++
+ tools/server/server-context.cpp | 17 +++++++++++------
+ 2 files changed, 25 insertions(+), 6 deletions(-)
+
+== [14s] 4. build build-master (llama-server llama-bench llama-batched-bench, -j192)
+version: 0.7.0-dev (build 1, commit 7182ef7)
+built with GNU 13.3.0 for Linux x86_64
+build-master: built
+
+== [275s] 4. build build-fix (llama-server llama-bench llama-batched-bench, -j192)
+version: 0.7.0-dev (build 1, commit 7182ef7)
+built with GNU 13.3.0 for Linux x86_64
+build-fix: built
+
+== [539s] 5. model Qwen3-8B Q4_K_M
+downloading https://huggingface.co/Qwen/Qwen3-8B-GGUF/resolve/main/Qwen3-8B-Q4_K_M.gguf
+-rw-rw-r-- 1 root root 5027783488 Oct 29 22:04 /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf
+d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785  /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf
+
+== [582s] 6. prompt set (October 8 mix)
+built: chat.jsonl chinese.jsonl code.jsonl reasoning.jsonl tool_calls.jsonl 
+
+== [597s] done
+
+Setup timings:
+  0. checks                        0s
+  1. apt packages                  0s
+  2. python packages               5s
+  3. llama.cpp source @ 7182ef71     9s
+  4. build build-master (llama-server llama-bench llama-batched-bench, -j192)   261s
+  4. build build-fix (llama-server llama-bench llama-batched-bench, -j192)   264s
+  5. model Qwen3-8B Q4_K_M        43s
+  6. prompt set (October 8 mix)    15s
+  total                        597s
+
+SETUP OK. Next: bash run.sh

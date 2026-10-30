@@ -1,0 +1,2 @@
+name, driver_version, memory.total [MiB], compute_cap, clocks.max.sm [MHz], clocks.max.memory [MHz], power.limit [W], pcie.link.gen.max, pcie.link.width.max
+NVIDIA H100 80GB HBM3, 615.71.09, 81559 MiB, 9.0, 1980 MHz, 2619 MHz, 588.00 W, 5, 16

@@ -1,0 +1,227 @@
+=== rmsnorm ===
+[rmsnorm] 4 shapes, L2 96 MiB, flush 256 MiB
+[rmsnorm] 1/4 rmsnorm {"hidden": 128, "probe": true, "tokens": 1}
+[rmsnorm] 2/4 rmsnorm {"hidden": 4096, "tokens": 1}
+[rmsnorm] 3/4 rmsnorm {"hidden": 4096, "tokens": 64}
+[rmsnorm] 4/4 rmsnorm {"hidden": 4096, "tokens": 4096}
+=== gemm ===
+[gemm] 131 shapes, L2 96 MiB, flush 256 MiB
+[gemm] 1/131 gemm {"K": 128, "M": 1, "N": 128, "probe": true, "proj": "probe", "weight_bytes": 32768}
+[gemm] 2/131 gemm {"K": 4096, "M": 1, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 3/131 gemm {"K": 4096, "M": 2, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 4/131 gemm {"K": 4096, "M": 4, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 5/131 gemm {"K": 4096, "M": 8, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 6/131 gemm {"K": 4096, "M": 16, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 7/131 gemm {"K": 4096, "M": 32, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 8/131 gemm {"K": 4096, "M": 64, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 9/131 gemm {"K": 4096, "M": 128, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 10/131 gemm {"K": 4096, "M": 256, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 11/131 gemm {"K": 4096, "M": 512, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 12/131 gemm {"K": 4096, "M": 1024, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 13/131 gemm {"K": 4096, "M": 2048, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 14/131 gemm {"K": 4096, "M": 4096, "N": 4096, "proj": "q", "weight_bytes": 33554432}
+[gemm] 15/131 gemm {"K": 4096, "M": 1, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 16/131 gemm {"K": 4096, "M": 2, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 17/131 gemm {"K": 4096, "M": 4, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 18/131 gemm {"K": 4096, "M": 8, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 19/131 gemm {"K": 4096, "M": 16, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 20/131 gemm {"K": 4096, "M": 32, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 21/131 gemm {"K": 4096, "M": 64, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 22/131 gemm {"K": 4096, "M": 128, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 23/131 gemm {"K": 4096, "M": 256, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 24/131 gemm {"K": 4096, "M": 512, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 25/131 gemm {"K": 4096, "M": 1024, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 26/131 gemm {"K": 4096, "M": 2048, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 27/131 gemm {"K": 4096, "M": 4096, "N": 1024, "proj": "k", "weight_bytes": 8388608}
+[gemm] 28/131 gemm {"K": 4096, "M": 1, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 29/131 gemm {"K": 4096, "M": 2, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 30/131 gemm {"K": 4096, "M": 4, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 31/131 gemm {"K": 4096, "M": 8, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 32/131 gemm {"K": 4096, "M": 16, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 33/131 gemm {"K": 4096, "M": 32, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 34/131 gemm {"K": 4096, "M": 64, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 35/131 gemm {"K": 4096, "M": 128, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 36/131 gemm {"K": 4096, "M": 256, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 37/131 gemm {"K": 4096, "M": 512, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 38/131 gemm {"K": 4096, "M": 1024, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 39/131 gemm {"K": 4096, "M": 2048, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 40/131 gemm {"K": 4096, "M": 4096, "N": 1024, "proj": "v", "weight_bytes": 8388608}
+[gemm] 41/131 gemm {"K": 4096, "M": 1, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 42/131 gemm {"K": 4096, "M": 2, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 43/131 gemm {"K": 4096, "M": 4, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 44/131 gemm {"K": 4096, "M": 8, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 45/131 gemm {"K": 4096, "M": 16, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 46/131 gemm {"K": 4096, "M": 32, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 47/131 gemm {"K": 4096, "M": 64, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 48/131 gemm {"K": 4096, "M": 128, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 49/131 gemm {"K": 4096, "M": 256, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 50/131 gemm {"K": 4096, "M": 512, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 51/131 gemm {"K": 4096, "M": 1024, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 52/131 gemm {"K": 4096, "M": 2048, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 53/131 gemm {"K": 4096, "M": 4096, "N": 4096, "proj": "o", "weight_bytes": 33554432}
+[gemm] 54/131 gemm {"K": 4096, "M": 1, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 55/131 gemm {"K": 4096, "M": 2, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 56/131 gemm {"K": 4096, "M": 4, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 57/131 gemm {"K": 4096, "M": 8, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 58/131 gemm {"K": 4096, "M": 16, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 59/131 gemm {"K": 4096, "M": 32, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 60/131 gemm {"K": 4096, "M": 64, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 61/131 gemm {"K": 4096, "M": 128, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 62/131 gemm {"K": 4096, "M": 256, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 63/131 gemm {"K": 4096, "M": 512, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 64/131 gemm {"K": 4096, "M": 1024, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 65/131 gemm {"K": 4096, "M": 2048, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 66/131 gemm {"K": 4096, "M": 4096, "N": 12288, "proj": "gate", "weight_bytes": 100663296}
+[gemm] 67/131 gemm {"K": 4096, "M": 1, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 68/131 gemm {"K": 4096, "M": 2, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 69/131 gemm {"K": 4096, "M": 4, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 70/131 gemm {"K": 4096, "M": 8, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 71/131 gemm {"K": 4096, "M": 16, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 72/131 gemm {"K": 4096, "M": 32, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 73/131 gemm {"K": 4096, "M": 64, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 74/131 gemm {"K": 4096, "M": 128, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 75/131 gemm {"K": 4096, "M": 256, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 76/131 gemm {"K": 4096, "M": 512, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 77/131 gemm {"K": 4096, "M": 1024, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 78/131 gemm {"K": 4096, "M": 2048, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 79/131 gemm {"K": 4096, "M": 4096, "N": 12288, "proj": "up", "weight_bytes": 100663296}
+[gemm] 80/131 gemm {"K": 12288, "M": 1, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 81/131 gemm {"K": 12288, "M": 2, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 82/131 gemm {"K": 12288, "M": 4, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 83/131 gemm {"K": 12288, "M": 8, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 84/131 gemm {"K": 12288, "M": 16, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 85/131 gemm {"K": 12288, "M": 32, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 86/131 gemm {"K": 12288, "M": 64, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 87/131 gemm {"K": 12288, "M": 128, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 88/131 gemm {"K": 12288, "M": 256, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 89/131 gemm {"K": 12288, "M": 512, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 90/131 gemm {"K": 12288, "M": 1024, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 91/131 gemm {"K": 12288, "M": 2048, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 92/131 gemm {"K": 12288, "M": 4096, "N": 4096, "proj": "down", "weight_bytes": 100663296}
+[gemm] 93/131 gemm {"K": 4096, "M": 1, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 94/131 gemm {"K": 4096, "M": 2, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 95/131 gemm {"K": 4096, "M": 4, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 96/131 gemm {"K": 4096, "M": 8, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 97/131 gemm {"K": 4096, "M": 16, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 98/131 gemm {"K": 4096, "M": 32, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 99/131 gemm {"K": 4096, "M": 64, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 100/131 gemm {"K": 4096, "M": 128, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 101/131 gemm {"K": 4096, "M": 256, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 102/131 gemm {"K": 4096, "M": 512, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 103/131 gemm {"K": 4096, "M": 1024, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 104/131 gemm {"K": 4096, "M": 2048, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 105/131 gemm {"K": 4096, "M": 4096, "N": 6144, "proj": "qkv", "weight_bytes": 50331648}
+[gemm] 106/131 gemm {"K": 4096, "M": 1, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 107/131 gemm {"K": 4096, "M": 2, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 108/131 gemm {"K": 4096, "M": 4, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 109/131 gemm {"K": 4096, "M": 8, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 110/131 gemm {"K": 4096, "M": 16, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 111/131 gemm {"K": 4096, "M": 32, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 112/131 gemm {"K": 4096, "M": 64, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 113/131 gemm {"K": 4096, "M": 128, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 114/131 gemm {"K": 4096, "M": 256, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 115/131 gemm {"K": 4096, "M": 512, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 116/131 gemm {"K": 4096, "M": 1024, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 117/131 gemm {"K": 4096, "M": 2048, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 118/131 gemm {"K": 4096, "M": 4096, "N": 24576, "proj": "gate_up", "weight_bytes": 201326592}
+[gemm] 119/131 gemm {"K": 4096, "M": 1, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 120/131 gemm {"K": 4096, "M": 2, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 121/131 gemm {"K": 4096, "M": 4, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 122/131 gemm {"K": 4096, "M": 8, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 123/131 gemm {"K": 4096, "M": 16, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 124/131 gemm {"K": 4096, "M": 32, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 125/131 gemm {"K": 4096, "M": 64, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 126/131 gemm {"K": 4096, "M": 128, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 127/131 gemm {"K": 4096, "M": 256, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 128/131 gemm {"K": 4096, "M": 512, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 129/131 gemm {"K": 4096, "M": 1024, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 130/131 gemm {"K": 4096, "M": 2048, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+[gemm] 131/131 gemm {"K": 4096, "M": 4096, "N": 151936, "proj": "lm_head", "weight_bytes": 1244659712}
+=== attn_prefill ===
+[attn_prefill] 4 shapes, L2 96 MiB, flush 256 MiB
+[attn_prefill] 1/4 attn_prefill {"batch": 1, "causal": true, "head_dim": 128, "kv_len": 16, "n_kv_heads": 1, "n_q_heads": 4, "probe": true, "q_len": 16}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: Memory efficient kernel not used because: (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:1104.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 4, 16, 128], Key sizes(): [1, 1, 16, 128], Value sizes(): [1, 1, 16, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: Flash attention kernel not used because: (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:1106.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: Flash attention has been runtime disabled. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:559.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: cuDNN attention kernel not used because: (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:1108.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: cuDNN attention has been runtime disabled. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:831.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_prefill] 2/4 attn_prefill {"batch": 1, "causal": true, "head_dim": 128, "kv_len": 512, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 512}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 512, 128], Key sizes(): [1, 8, 512, 128], Value sizes(): [1, 8, 512, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_prefill] 3/4 attn_prefill {"batch": 1, "causal": true, "head_dim": 128, "kv_len": 2048, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 2048}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 2048, 128], Key sizes(): [1, 8, 2048, 128], Value sizes(): [1, 8, 2048, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_prefill] 4/4 attn_prefill {"batch": 1, "causal": true, "head_dim": 128, "kv_len": 8192, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 8192}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 8192, 128], Key sizes(): [1, 8, 8192, 128], Value sizes(): [1, 8, 8192, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+=== attn_decode ===
+[attn_decode] 17 shapes, L2 96 MiB, flush 256 MiB
+[attn_decode] 1/17 attn_decode {"batch": 1, "causal": false, "head_dim": 128, "kv_len": 16, "n_kv_heads": 1, "n_q_heads": 4, "probe": true, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: Memory efficient kernel not used because: (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:1104.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 4, 1, 128], Key sizes(): [1, 1, 16, 128], Value sizes(): [1, 1, 16, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: Flash attention kernel not used because: (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:1106.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: Flash attention has been runtime disabled. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:559.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: cuDNN attention kernel not used because: (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:1108.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: cuDNN attention has been runtime disabled. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:831.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 2/17 attn_decode {"batch": 1, "causal": false, "head_dim": 128, "kv_len": 512, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 1, 128], Key sizes(): [1, 8, 512, 128], Value sizes(): [1, 8, 512, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 3/17 attn_decode {"batch": 1, "causal": false, "head_dim": 128, "kv_len": 2048, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 1, 128], Key sizes(): [1, 8, 2048, 128], Value sizes(): [1, 8, 2048, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 4/17 attn_decode {"batch": 1, "causal": false, "head_dim": 128, "kv_len": 8192, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 1, 128], Key sizes(): [1, 8, 8192, 128], Value sizes(): [1, 8, 8192, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 5/17 attn_decode {"batch": 1, "causal": false, "head_dim": 128, "kv_len": 32768, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [1, 32, 1, 128], Key sizes(): [1, 8, 32768, 128], Value sizes(): [1, 8, 32768, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 6/17 attn_decode {"batch": 4, "causal": false, "head_dim": 128, "kv_len": 512, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [4, 32, 1, 128], Key sizes(): [4, 8, 512, 128], Value sizes(): [4, 8, 512, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 7/17 attn_decode {"batch": 4, "causal": false, "head_dim": 128, "kv_len": 2048, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [4, 32, 1, 128], Key sizes(): [4, 8, 2048, 128], Value sizes(): [4, 8, 2048, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 8/17 attn_decode {"batch": 4, "causal": false, "head_dim": 128, "kv_len": 8192, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [4, 32, 1, 128], Key sizes(): [4, 8, 8192, 128], Value sizes(): [4, 8, 8192, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 9/17 attn_decode {"batch": 4, "causal": false, "head_dim": 128, "kv_len": 32768, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [4, 32, 1, 128], Key sizes(): [4, 8, 32768, 128], Value sizes(): [4, 8, 32768, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 10/17 attn_decode {"batch": 16, "causal": false, "head_dim": 128, "kv_len": 512, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [16, 32, 1, 128], Key sizes(): [16, 8, 512, 128], Value sizes(): [16, 8, 512, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 11/17 attn_decode {"batch": 16, "causal": false, "head_dim": 128, "kv_len": 2048, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [16, 32, 1, 128], Key sizes(): [16, 8, 2048, 128], Value sizes(): [16, 8, 2048, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 12/17 attn_decode {"batch": 16, "causal": false, "head_dim": 128, "kv_len": 8192, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [16, 32, 1, 128], Key sizes(): [16, 8, 8192, 128], Value sizes(): [16, 8, 8192, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 13/17 attn_decode {"batch": 16, "causal": false, "head_dim": 128, "kv_len": 32768, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [16, 32, 1, 128], Key sizes(): [16, 8, 32768, 128], Value sizes(): [16, 8, 32768, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 14/17 attn_decode {"batch": 64, "causal": false, "head_dim": 128, "kv_len": 512, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [64, 32, 1, 128], Key sizes(): [64, 8, 512, 128], Value sizes(): [64, 8, 512, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 15/17 attn_decode {"batch": 64, "causal": false, "head_dim": 128, "kv_len": 2048, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [64, 32, 1, 128], Key sizes(): [64, 8, 2048, 128], Value sizes(): [64, 8, 2048, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 16/17 attn_decode {"batch": 64, "causal": false, "head_dim": 128, "kv_len": 8192, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [64, 32, 1, 128], Key sizes(): [64, 8, 8192, 128], Value sizes(): [64, 8, 8192, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+[attn_decode] 17/17 attn_decode {"batch": 64, "causal": false, "head_dim": 128, "kv_len": 32768, "n_kv_heads": 8, "n_q_heads": 32, "q_len": 1}
+/root/llm-perfsim/bench/ops_bench.py:359: UserWarning: For dense input, both fused kernels require query, key and value to have the same num_heads. Query.sizes(): [64, 32, 1, 128], Key sizes(): [64, 8, 32768, 128], Value sizes(): [64, 8, 32768, 128] instead. To broadcast dense inputs, try using unsqueeze and expand_to before passing them into the kernel. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/transformers/sdp_utils_cpp.h:437.)
+  return F.scaled_dot_product_attention(q, k, v, is_causal=causal, enable_gqa=True)
+done in 27 s: 205 records in /root/llm-perfsim/data/rtx5090/ops.jsonl

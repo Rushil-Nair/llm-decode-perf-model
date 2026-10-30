@@ -1,0 +1,173 @@
+== [0s] workload: October 8 five-kind mix (code, tool_calls, chat, chinese, reasoning), first 100 of the 200 in the October order
+== [0s] 1. machine info
+name, driver_version, memory.total [MiB], compute_cap, clocks.max.sm [MHz], clocks.max.memory [MHz], power.limit [W], pcie.link.gen.max, pcie.link.width.max
+NVIDIA GeForce RTX 5090, 580.178.04, 32607 MiB, 12.0, 3105 MHz, 14001 MHz, 500.00 W, 5, 16
+== [1s] 2a. llama-bench (build-fix): pp512, tg128, pg512+128
++ /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-bench -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf -ngl 99 -p 512 -n 128 -pg 512,128 -b 2048 -ub 512 -r 3 -o json > /root/llm-perfsim/bench/llamacpp/results_h100/bench/llama_bench.json
+== [7s] 2b. llama-batched-bench (build-fix): pp128 tg128, npl 1..32
++ /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-batched-bench -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf -ngl 99 -c 32768 -b 2048 -ub 512 -npp 128 -ntg 128 -npl 1,2,4,8,16,32 --output-format jsonl
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 8, "n_threads_batch": 8, "pp": 128, "tg": 128, "pl": 1, "n_kv": 256, "t_pp": 0.026484, "speed_pp": 4833.106934, "t_tg": 0.496920, "speed_tg": 257.586731, "t": 0.523404, "speed": 489.105927}
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 8, "n_threads_batch": 8, "pp": 128, "tg": 128, "pl": 2, "n_kv": 512, "t_pp": 0.022944, "speed_pp": 11157.601562, "t_tg": 0.556544, "speed_tg": 459.981598, "t": 0.579488, "speed": 883.538574}
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 8, "n_threads_batch": 8, "pp": 128, "tg": 128, "pl": 4, "n_kv": 1024, "t_pp": 0.037864, "speed_pp": 13522.079102, "t_tg": 0.620583, "speed_tg": 825.030640, "t": 0.658447, "speed": 1555.174438}
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 8, "n_threads_batch": 8, "pp": 128, "tg": 128, "pl": 8, "n_kv": 2048, "t_pp": 0.074878, "speed_pp": 13675.579102, "t_tg": 0.734236, "speed_tg": 1394.646973, "t": 0.809114, "speed": 2531.163818}
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 8, "n_threads_batch": 8, "pp": 128, "tg": 128, "pl": 16, "n_kv": 4096, "t_pp": 0.145609, "speed_pp": 14065.064453, "t_tg": 0.860608, "speed_tg": 2379.712891, "t": 1.006217, "speed": 4070.692383}
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 8, "n_threads_batch": 8, "pp": 128, "tg": 128, "pl": 32, "n_kv": 8192, "t_pp": 0.283150, "speed_pp": 14465.831055, "t_tg": 1.049032, "speed_tg": 3904.552002, "t": 1.332182, "speed": 6149.310059}
+== [13s] 2c. ncu: build-fix llama-bench decode, batch 1, 16 tokens (CUDA graphs off, real clocks)
++ GGML_CUDA_DISABLE_GRAPHS=1 /usr/local/cuda/bin/ncu --clock-control none --metrics gpu__time_duration.sum,dram__bytes_read.sum,dram__bytes_write.sum,dram__throughput.avg.pct_of_peak_sustained_elapsed --csv --page raw --print-units base --log-file /root/llm-perfsim/bench/llamacpp/results_h100/ncu/fix_tg_b1.csv /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-bench -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf -ngl 99 -p 0 -n 16 -r 1
+!! WARNING: ncu run failed (see results_h100/ncu/fix_tg_b1.stderr.log; ERR_NVGPUCTRPERM = needs sudo)
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 17535 (/root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-bench)
+==ERROR== ERR_NVGPUCTRPERM - The user does not have permission to access NVI
+== [16s] 2d. gemv: skipped (SKIP_GEMV=1)
+== [16s] 3. slot test: build-master, 1 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-master/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/master_plain_u1.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy master_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 1 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter
+master_plain users=1: throughput 237.2 tok/s (237.2-237.2), p50 0.79 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=18200 ubatches=18200 passes_per_step=1.00 hist_passes=[18200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+== [96s] 3. slot test: build-master, 4 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-master/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/master_plain_u4.server.log 2>&1 &
+   server up after 5s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy master_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 4 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter
+master_plain users=4: throughput 290.2 tok/s (290.2-290.2), p50 2.38 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=4500 ubatches=13164 passes_per_step=2.93 hist_passes=[102,1280,1970,1148,0,0,0,0,0,0,0,0,0,0,0,0]
+== [165s] 3. slot test: build-master, 8 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-master/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/master_plain_u8.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy master_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 8 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter
+master_plain users=8: throughput 408.0 tok/s (408.0-408.0), p50 3.23 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=2400 ubatches=8480 passes_per_step=3.53 hist_passes=[120,444,541,852,298,64,81,0,0,0,0,0,0,0,0,0]
+== [213s] 3. slot test: build-master, 16 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-master/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/master_plain_u16.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy master_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 16 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter
+master_plain users=16: throughput 1042.5 tok/s (1042.5-1042.5), p50 2.39 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=1200 ubatches=1783 passes_per_step=1.49 hist_passes=[933,103,31,114,19,0,0,0,0,0,0,0,0,0,0,0]
+== [233s] 3. slot test: build-fix, 1 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/fix_plain_u1.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy fix_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 1 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter+slot_order
+fix_plain users=1: throughput 237.3 tok/s (237.3-237.3), p50 0.79 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=18200 ubatches=18200 passes_per_step=1.00 hist_passes=[18200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+== [314s] 3. slot test: build-fix, 4 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/fix_plain_u4.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy fix_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 4 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter+slot_order
+fix_plain users=4: throughput 629.4 tok/s (629.4-629.4), p50 1.17 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=4500 ubatches=4553 passes_per_step=1.01 hist_passes=[4447,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+== [346s] 3. slot test: build-fix, 8 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/fix_plain_u8.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy fix_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 8 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter+slot_order
+fix_plain users=8: throughput 842.3 tok/s (842.3-842.3), p50 1.69 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=2300 ubatches=2492 passes_per_step=1.08 hist_passes=[2109,190,1,0,0,0,0,0,0,0,0,0,0,0,0,0]
+== [371s] 3. slot test: build-fix, 16 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics 
++ /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics  > /root/llm-perfsim/bench/llamacpp/results_h100/slot/fix_plain_u16.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'false'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy fix_plain --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics  --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 16 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter+slot_order
+fix_plain users=16: throughput 1026.3 tok/s (1026.3-1026.3), p50 2.42 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=1200 ubatches=1899 passes_per_step=1.58 hist_passes=[927,103,17,50,103,0,0,0,0,0,0,0,0,0,0,0]
+== [392s] 3. slot test: build-master, 8 users, server args: -c 65536 -np 16 -ngl 99 --seed 0 --metrics --kv-unified
++ /root/llm-perfsim/bench/llamacpp/work/build-master/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics --kv-unified > /root/llm-perfsim/bench/llamacpp/results_h100/slot/master_kvu_u8.server.log 2>&1 &
+   server up after 3s
+   kv_unified = 'true'
++ timeout 900 python3 /root/llm-perfsim/bench/llamacpp/loadgen/loadgen.py --url http://127.0.0.1:8091 --policy master_kvu --server-args -m Qwen3-8B-Q4_K_M.gguf -c 65536 -np 16 -ngl 99 --seed 0 --metrics --kv-unified --out /root/llm-perfsim/bench/llamacpp/results_h100/slot --users 8 --repeats 1 --max-tokens 192 --kind-dir /root/llm-perfsim/bench/llamacpp/loadgen/data/first_hour --start 30 --count 40 --seed 11 --limit 100 --hardware NVIDIA GeForce RTX 5090 --llama-commit 7182ef71e6d5dd0c8ea76486fac134fcd25025d4+diag_counter
+master_kvu users=8: throughput 657.5 tok/s (657.5-657.5), p50 2.12 s,  failed 0 of 100
+loadgen DONE
+   DIAG decode_calls=2300 ubatches=2300 passes_per_step=1.00 hist_passes=[2300,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+== [423s] 4. nsys: build-master, 8 users, ~20s of load
++ /usr/local/bin/nsys profile -t cuda --stats=true --force-overwrite=true -o /root/llm-perfsim/bench/llamacpp/results_h100/nsys/master_u8 /root/llm-perfsim/bench/llamacpp/work/build-master/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics &
++ python3 loadgen/synthetic_load.py http://127.0.0.1:8091 8 100000 &  (stopped after 20s)
+        42.3       6117380420    3041676     2011.2     1953.0       461    319877        802.1  cudaLaunchKernelExC_v11060    
+         2.3        328601999     163137     2014.3     1983.0       481    230841        700.1  cudaLaunchKernel              
+         0.1         11692692        108   108265.7    97917.5     95739    368036      41817.9  cudaGraphLaunch_v10000        
+== [513s] 4. nsys: build-fix, 8 users, ~20s of load
++ /usr/local/bin/nsys profile -t cuda --stats=true --force-overwrite=true -o /root/llm-perfsim/bench/llamacpp/results_h100/nsys/fix_u8 /root/llm-perfsim/bench/llamacpp/work/build-fix/bin/llama-server -m /root/llm-perfsim/bench/llamacpp/work/models/Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8091 -c 65536 -np 16 -ngl 99 --seed 0 --metrics &
++ python3 loadgen/synthetic_load.py http://127.0.0.1:8091 8 100000 &  (stopped after 20s)
+         4.8        732095455     395994     1848.8     1923.0       441    433711       1072.9  cudaLaunchKernelExC_v11060    
+         3.5        542497075     325179     1668.3     1933.0       460    101170        764.0  cudaLaunchKernel              
+         1.3        202038150       2011   100466.5    98324.0     94287    269443      10659.4  cudaGraphLaunch_v10000        
+== [555s] 5. summary
+# H100 results: llama.cpp slot-order fix + roofline check
+
+- GPU: NVIDIA GeForce RTX 5090  (CUDA Version: 13.0)
+- llama.cpp: 7182ef71e6d5dd0c8ea76486fac134fcd25025d4 + diag_counter.patch (build-master) / + slot_order.patch (build-fix)
+- model: Qwen3-8B-Q4_K_M.gguf  sha256 d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785
+- workload: October 8 five-kind mix (code, tool_calls, chat, chinese, reasoning), first 100 of the 200 in the October order; closed loop, greedy, max 192 tokens (384 with thinking), cache_prompt off, 1 repeat
+- server: `llama-server -c 65536 -np 16 -ngl 99 --seed 0 --metrics` (one KV stream per slot unless noted)
+
+## llama-bench (build-fix)
+
+| test | t/s | stdev |
+|---|---|---|
+| pp512 | 13809.3 | 1233.2 |
+| tg128 | 261.4 | 0.3 |
+| pp512+tg128 | 1187.7 | 1.7 |
+
+## llama-batched-bench (build-fix, pp128 tg128, per-sequence KV)
+
+| B | S_PP t/s | S_TG t/s (decode, all seqs) | per-seq decode t/s |
+|---|---|---|---|
+| 1 | 4833 | 257.6 | 257.6 |
+| 2 | 11158 | 460.0 | 230.0 |
+| 4 | 13522 | 825.0 | 206.3 |
+| 8 | 13676 | 1394.6 | 174.3 |
+| 16 | 14065 | 2379.7 | 148.7 |
+| 32 | 14466 | 3904.6 | 122.0 |
+
+## Slot test: aggregate decode tokens/s and forward passes per generation step
+
+| users | master tok/s | master passes/step | fix tok/s | fix passes/step | fix / master | RTX 5090 Oct 8 (master -> fix) |
+|---|---|---|---|---|---|---|
+| 1 | 237.2 | 1.00 | 237.3 | 1.00 | 1.00x | 228.3 -> 228.1 (1.00x) |
+| 4 | 290.2 | 2.93 | 629.4 | 1.01 | 2.17x | 262.5 -> 487.8 (1.86x) |
+| 8 | 408.0 | 3.53 | 842.3 | 1.08 | 2.06x | 333.6 -> 878.9 (2.63x) |
+| 16 | 1042.5 | 1.49 | 1026.3 | 1.58 | 0.98x | 1143.6 -> 1136.2 (0.99x) |
+| 8, master --kv-unified | 657.5 | 1.00 | | | | 639.0 |
+
+passes/step = last DIAG line of the server log (cumulative over the run, generation-only llama_decode calls).
+Failed requests: master_plain_u1 0/100, master_plain_u4 0/100, master_plain_u8 0/100, master_plain_u16 0/100, fix_plain_u1 0/100, fix_plain_u4 0/100, fix_plain_u8 0/100, fix_plain_u16 0/100
+
+(ncu csv unreadable: )
+
+## nsys (build-master, 8 users, ~20 s)
+
+```
+     51.2       7413819959     133298    55618.4      531.0       310  11574279     338886.3  cudaStreamSynchronize         
+     42.3       6117380420    3041676     2011.2     1953.0       461    319877        802.1  cudaLaunchKernelExC_v11060    
+      2.3        328601999     163137     2014.3     1983.0       481    230841        700.1  cudaLaunchKernel              
+      0.1         11692692        108   108265.7    97917.5     95739    368036      41817.9  cudaGraphLaunch_v10000        
+```
+
+## nsys (build-fix, 8 users, ~20 s)
+
+```
+     85.4      13141495805     172166    76330.4      501.0       310  11586547     628638.4  cudaStreamSynchronize         
+      4.8        732095455     395994     1848.8     1923.0       441    433711       1072.9  cudaLaunchKernelExC_v11060    
+      3.5        542497075     325179     1668.3     1933.0       460    101170        764.0  cudaLaunchKernel              
+      1.3        202038150       2011   100466.5    98324.0     94287    269443      10659.4  cudaGraphLaunch_v10000        
+```
+
+## Warnings
+
+```
+ncu run failed (see results_h100/ncu/fix_tg_b1.stderr.log; ERR_NVGPUCTRPERM = needs sudo)
+```
+
+== [564s] done. Send back: /root/llm-perfsim/bench/llamacpp/results_h100.tar.gz (120M)

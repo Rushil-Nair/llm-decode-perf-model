@@ -1,0 +1,69 @@
+== vLLM latency grid, gpu_tag=h100_sxm -> /root/llm-perfsim/data/h100_sxm
+== installing vllm (pulls a matching torch; several minutes)
+# 2026-10-29T21:36:43Z  python: Python 3.12.15
+Name: vllm
+Version: 0.32.0
+Summary: A high-throughput and memory-efficient inference and serving engine for LLMs
+Home-page: https://github.com/vllm-project/vllm
+Author: vLLM Team
+Author-email: 
+License-Expression: Apache-2.0
+Location: /venv/main/lib/python3.12/site-packages
+Requires: aiohttp, anthropic, apache-tvm-ffi, blake3, cachetools, cbor2, cloudpickle, compressed-tensors, depyf, einops, fastapi, fastsafetensors, filelock, flashinfer-python, huggingface_hub, humming-kernels, ijson, instanttensor, jsonschema, lark, llguidance, lm-format-enforcer, mcp, mistral_common, model-hosting-container-standards, msgspec, ninja, numba, numpy, nvidia-cudnn-frontend, nvidia-cutlass-dsl, nvtx, openai, opencv-python-headless, opentelemetry-api, opentelemetry-exporter-otlp, opentelemetry-sdk, opentelemetry-semantic-conventions-ai, oss-harmony, outlines_core, partial-json-parser, pillow, prometheus-fastapi-instrumentator, prometheus_client, protobuf, psutil, py-cpuinfo, pybase64, pydantic, PyNvVideoCodec, python-json-logger, pyyaml, pyzmq, quack-kernels, regex, requests, safetensors, sentencepiece, setproctitle, setuptools, six, starlette, tiktoken, tilelang, tokenizers, tokenspeed-mla, torch, torchaudio, torchcodec, torchvision, tqdm, transformers, typing_extensions, watchfiles, xgrammar
+Required-by: 
+---
+Name: torch
+Version: 2.13.0
+Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+Home-page: https://pytorch.org
+Author: 
+Author-email: PyTorch Team <packages@pytorch.org>
+License-Expression: Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
+Location: /venv/main/lib/python3.12/site-packages
+Requires: cuda-bindings, cuda-toolkit, filelock, fsspec, jinja2, networkx, nvidia-cudnn-cu13, nvidia-cusparselt-cu13, nvidia-nccl-cu13, nvidia-nvshmem-cu13, setuptools, sympy, triton, typing-extensions
+Required-by: compressed-tensors, flashinfer-python, humming-kernels, instanttensor, quack-kernels, tilelang, tokenspeed-mla, torch_c_dlpack_ext, torchvision, vllm, xgrammar
+
+# torch build
+torch 2.13.0+cu130 cuda 13.0 arch_list ['sm_75', 'sm_80', 'sm_86', 'sm_90', 'sm_100', 'sm_120'] device NVIDIA H100 80GB HBM3 capability (9, 0)
+
+# driver
+name, driver_version, compute_cap, memory.total [MiB]
+NVIDIA H100 80GB HBM3, 615.71.09, 9.0, 81559 MiB
+== downloading Qwen/Qwen3-8B (skipped if cached)
+vllm 0.32.0  torch 2.13.0+cu130  cli: /venv/main/bin/vllm  --no-enforce-eager supported: True
+[b1_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b1_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in512_out1] avg 0.0201 s  p50 0.0200 s  (173 s wall)
+[b1_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b1_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in512_out128] avg 0.8446 s  p50 0.8443 s  (57 s wall)
+[b2_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 2 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b2_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b2_in512_out1] avg 0.0577 s  p50 0.0324 s  (42 s wall)
+[b2_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 2 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b2_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b2_in512_out128] avg 0.8633 s  p50 0.8604 s  (53 s wall)
+[b4_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 4 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b4_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b4_in512_out1] avg 0.0596 s  p50 0.0597 s  (44 s wall)
+[b4_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 4 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b4_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b4_in512_out128] avg 0.9011 s  p50 0.9011 s  (59 s wall)
+[b8_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 8 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b8_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b8_in512_out1] avg 0.1145 s  p50 0.1135 s  (44 s wall)
+[b8_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 8 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b8_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b8_in512_out128] avg 0.9706 s  p50 0.9711 s  (58 s wall)
+[b16_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 16 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b16_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b16_in512_out1] avg 0.2195 s  p50 0.2171 s  (53 s wall)
+[b16_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 16 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b16_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b16_in512_out128] avg 1.1079 s  p50 1.1081 s  (54 s wall)
+[b32_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 32 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b32_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b32_in512_out1] avg 0.4272 s  p50 0.4267 s  (47 s wall)
+[b32_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 32 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b32_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b32_in512_out128] avg 1.3681 s  p50 1.3673 s  (64 s wall)
+[b64_in512_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 64 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b64_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b64_in512_out1] avg 0.8387 s  p50 0.8390 s  (59 s wall)
+[b64_in512_out128] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 64 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b64_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b64_in512_out128] avg 1.9433 s  p50 1.9430 s  (77 s wall)
+[b1_in128_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 128 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b1_in128_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in128_out1] avg 0.0128 s  p50 0.0128 s  (50 s wall)
+[b1_in2048_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 2048 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b1_in2048_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in2048_out1] avg 0.0589 s  p50 0.0587 s  (50 s wall)
+[b1_in8192_out1] + /venv/main/bin/vllm bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 8192 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/h100_sxm/vllm/b1_in8192_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in8192_out1] avg 0.2512 s  p50 0.2506 s  (44 s wall)
+vllm grid: 17 ok, 0 failed, 0 skipped -> /root/llm-perfsim/data/h100_sxm/vllm_latency.jsonl
+== done: 17 records in /root/llm-perfsim/data/h100_sxm/vllm_latency.jsonl

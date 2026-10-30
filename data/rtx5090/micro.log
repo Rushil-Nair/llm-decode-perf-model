@@ -1,0 +1,14 @@
+[21:45:40] nvcc: /usr/local/cuda/bin/nvcc (Build cuda_13.0.r13.0/compiler.36424714_0)
+[21:45:40] GPU: NVIDIA GeForce RTX 5090, 580.178.04 cc=120
+[21:45:41] built pointer_chase (-arch=native)
+[21:45:42] built stream_bw (-arch=native)
+[21:45:45] built gemv_sweep (-arch=native)
+[21:45:45] running pointer_chase (timeout 1200s)
+[21:45:47] pointer_chase: 33 JSON records
+[21:45:47] running stream_bw (timeout 1200s)
+[21:45:48] stream_bw: 185 JSON records
+[21:45:48] running gemv_sweep (timeout 1800s)
+[21:45:49] gemv_sweep: 146 JSON records
+[21:45:50] ncu: /usr/local/cuda/bin/ncu  sudo: no  counters_ok: false
+[21:45:50] ERROR ncu_counters: GPU performance counters not accessible to ncu (see ncu_probe.txt); skipped ncu
+[21:45:51] done; results in /root/llm-perfsim/data/rtx5090

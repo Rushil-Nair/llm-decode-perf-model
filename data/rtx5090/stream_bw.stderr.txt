@@ -1,0 +1,3 @@
+GPU NVIDIA GeForce RTX 5090, 170 SMs, L2 100.7 MB, max threads/SM 1536, smem/SM 102400, smem/block opt-in 101376
+buffer 805.3 MB (8.0x L2)
+peak achievable read bandwidth: 1700.2 GB/s (bps=9 tpb=128 loads=2)

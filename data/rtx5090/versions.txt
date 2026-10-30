@@ -1,0 +1,29 @@
+# 2026-10-29T21:48:33Z  python: Python 3.12.3
+Name: vllm
+Version: 0.32.0
+Summary: A high-throughput and memory-efficient inference and serving engine for LLMs
+Home-page: 
+Author: vLLM Team
+Author-email: 
+License: 
+Location: /root/.local/lib/python3.12/site-packages
+Requires: aiohttp, anthropic, apache-tvm-ffi, blake3, cachetools, cbor2, cloudpickle, compressed-tensors, depyf, einops, fastapi, fastsafetensors, filelock, flashinfer-python, huggingface_hub, humming-kernels, ijson, instanttensor, jsonschema, lark, llguidance, lm-format-enforcer, mcp, mistral_common, model-hosting-container-standards, msgspec, ninja, numba, numpy, nvidia-cudnn-frontend, nvidia-cutlass-dsl, nvtx, openai, opencv-python-headless, opentelemetry-api, opentelemetry-exporter-otlp, opentelemetry-sdk, opentelemetry-semantic-conventions-ai, oss-harmony, outlines_core, partial-json-parser, pillow, prometheus-fastapi-instrumentator, prometheus_client, protobuf, psutil, py-cpuinfo, pybase64, pydantic, PyNvVideoCodec, python-json-logger, pyyaml, pyzmq, quack-kernels, regex, requests, safetensors, sentencepiece, setproctitle, setuptools, six, starlette, tiktoken, tilelang, tokenizers, tokenspeed-mla, torch, torchaudio, torchcodec, torchvision, tqdm, transformers, typing_extensions, watchfiles, xgrammar
+Required-by: 
+---
+Name: torch
+Version: 2.13.0
+Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+Home-page: 
+Author: 
+Author-email: PyTorch Team <packages@pytorch.org>
+License: 
+Location: /root/.local/lib/python3.12/site-packages
+Requires: cuda-bindings, cuda-toolkit, filelock, fsspec, jinja2, networkx, nvidia-cudnn-cu13, nvidia-cusparselt-cu13, nvidia-nccl-cu13, nvidia-nvshmem-cu13, setuptools, sympy, triton, typing-extensions
+Required-by: compressed-tensors, flashinfer-python, humming-kernels, instanttensor, quack-kernels, tilelang, tokenspeed-mla, torch_c_dlpack_ext, torchvision, vllm, xgrammar
+
+# torch build
+torch 2.13.0+cu130 cuda 13.0 arch_list ['sm_75', 'sm_80', 'sm_86', 'sm_90', 'sm_100', 'sm_120'] device NVIDIA GeForce RTX 5090 capability (12, 0)
+
+# driver
+name, driver_version, compute_cap, memory.total [MiB]
+NVIDIA GeForce RTX 5090, 580.178.04, 12.0, 32607 MiB

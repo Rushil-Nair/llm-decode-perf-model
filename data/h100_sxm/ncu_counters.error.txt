@@ -1,0 +1,1 @@
+GPU performance counters not accessible to ncu (see ncu_probe.txt); skipped ncu

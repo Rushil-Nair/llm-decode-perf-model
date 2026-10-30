@@ -1,0 +1,38 @@
+{
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0",
+  "cudnn": 92000,
+  "device": "NVIDIA GeForce RTX 5090",
+  "capability": [
+    12,
+    0
+  ],
+  "sm_count": 170,
+  "l2_bytes": 100663296,
+  "l2_source": "from torch device properties",
+  "flush_bytes": 268435456,
+  "warmup": 10,
+  "max_iters": 100,
+  "min_iters": 10,
+  "budget_s_per_op": 0.3,
+  "quick": false,
+  "timing": "CUDA events around the op only; L2 flushed before every timed call; median reported",
+  "families": {
+    "rmsnorm": {
+      "records": 12,
+      "errors": 0
+    },
+    "gemm": {
+      "records": 131,
+      "errors": 0
+    },
+    "attn_prefill": {
+      "records": 12,
+      "errors": 0
+    },
+    "attn_decode": {
+      "records": 50,
+      "errors": 0
+    }
+  }
+}

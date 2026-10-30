@@ -1,0 +1,14 @@
+0.00.574.909 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+DIAG decode_calls=100 ubatches=100 passes_per_step=1.00 hist_passes=[100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 96, "n_threads_batch": 96, "pp": 128, "tg": 128, "pl": 1, "n_kv": 256, "t_pp": 0.042087, "speed_pp": 3041.319092, "t_tg": 0.539936, "speed_tg": 237.065125, "t": 0.582023, "speed": 439.845154}
+DIAG decode_calls=200 ubatches=200 passes_per_step=1.00 hist_passes=[200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 96, "n_threads_batch": 96, "pp": 128, "tg": 128, "pl": 2, "n_kv": 512, "t_pp": 0.037089, "speed_pp": 6902.315918, "t_tg": 0.581906, "speed_tg": 439.933594, "t": 0.618995, "speed": 827.147217}
+DIAG decode_calls=300 ubatches=300 passes_per_step=1.00 hist_passes=[300,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 96, "n_threads_batch": 96, "pp": 128, "tg": 128, "pl": 4, "n_kv": 1024, "t_pp": 0.053721, "speed_pp": 9530.723633, "t_tg": 0.760287, "speed_tg": 673.429932, "t": 0.814008, "speed": 1257.972900}
+DIAG decode_calls=400 ubatches=400 passes_per_step=1.00 hist_passes=[400,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+DIAG decode_calls=500 ubatches=500 passes_per_step=1.00 hist_passes=[500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 96, "n_threads_batch": 96, "pp": 128, "tg": 128, "pl": 8, "n_kv": 2048, "t_pp": 0.105027, "speed_pp": 9749.874023, "t_tg": 1.095613, "speed_tg": 934.636597, "t": 1.200640, "speed": 1705.756958}
+DIAG decode_calls=600 ubatches=600 passes_per_step=1.00 hist_passes=[600,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 96, "n_threads_batch": 96, "pp": 128, "tg": 128, "pl": 16, "n_kv": 4096, "t_pp": 0.212605, "speed_pp": 9632.887695, "t_tg": 1.047416, "speed_tg": 1955.288086, "t": 1.260021, "speed": 3250.739502}
+{"n_kv_max": 32768, "n_batch": 2048, "n_ubatch": 512, "flash_attn": -1, "is_pp_shared": 0, "n_gpu_layers": 99, "n_threads": 96, "n_threads_batch": 96, "pp": 128, "tg": 128, "pl": 32, "n_kv": 8192, "t_pp": 0.393085, "speed_pp": 10420.137695, "t_tg": 1.289349, "speed_tg": 3176.797119, "t": 1.682434, "speed": 4869.136230}
+

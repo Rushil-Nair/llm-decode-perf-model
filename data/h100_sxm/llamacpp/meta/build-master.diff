@@ -1,0 +1,34 @@
+diff --git a/src/llama-context.cpp b/src/llama-context.cpp
+index 9ee64b5..e4f28e2 100644
+--- a/src/llama-context.cpp
++++ b/src/llama-context.cpp
+@@ -1978,8 +1978,14 @@ int llama_context::decode(const llama_batch_ext & batch_inp) {
+     int64_t n_outputs_prev = 0;
+     int64_t n_tokens_prev  = 0;
+ 
++    // DIAG (local test only): ubatches per llama_decode call, for decode-only calls (1 token per seq)
++    static long long dg_calls = 0, dg_ubatches = 0, dg_hist[17] = {0};
++    const bool dg_decode_only = n_tokens_all > 0 && n_tokens_all <= 16 && (uint32_t) n_outputs_all == n_tokens_all; // every token is an output: generation only (prompt tokens are not outputs except the last)
++    long long dg_this = 0;
++
+     do {
+         const auto & ubatch = mctx->get_ubatch();
++        dg_this++;
+ 
+         // count the outputs in this ubatch
+         {
+@@ -2163,6 +2169,14 @@ int llama_context::decode(const llama_batch_ext & batch_inp) {
+         n_outputs_prev += n_outputs;
+         n_tokens_prev  += ubatch.n_tokens;
+     } while (mctx->next());
++    if (dg_decode_only) {
++        dg_calls++; dg_ubatches += dg_this; dg_hist[std::min<long long>(dg_this, 16)]++;
++        if (dg_calls % 100 == 0) {
++            std::string h; for (int k = 1; k <= 16; k++) { h += std::to_string(dg_hist[k]) + (k < 16 ? "," : ""); }
++            fprintf(stderr, "DIAG decode_calls=%lld ubatches=%lld passes_per_step=%.2f hist_passes=[%s]\n", dg_calls, dg_ubatches, (double) dg_ubatches / dg_calls, h.c_str());
++            fflush(stderr);
++        }
++    }
+ 
+     // set to total number of outputs in the batch, for use in llama_get_logits_ith
+     n_outputs = n_outputs_all;

@@ -1,0 +1,14 @@
+== [0 min] gpu_tag=h100_sxm
+== [0 min] nvcc: /usr/local/cuda/bin/nvcc
+== [0 min] nsight compute counters available: false
+== [0 min] stage micro: start
+== [0 min] stage micro: done
+== [0 min] stage vllm: start
+== [20 min] stage vllm: done
+== [20 min] stage ops: start
+== [21 min] stage ops: done
+== [21 min] stage calib: start
+== [21 min] stage calib: done
+== [21 min] stage llamacpp: start
+== [42 min] stage llamacpp: done
+== [42 min] all stages finished

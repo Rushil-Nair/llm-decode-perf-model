@@ -1,0 +1,36 @@
+vllm 0.32.0  torch 2.13.0+cu130  cli: /usr/bin/python3 -m vllm.entrypoints.cli.main  --no-enforce-eager supported: True
+[b1_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b1_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in512_out1] avg 0.0416 s  p50 0.0417 s  (192 s wall)
+[b1_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b1_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in512_out128] avg 1.3467 s  p50 1.3466 s  (56 s wall)
+[b2_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 2 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b2_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b2_in512_out1] avg 0.0806 s  p50 0.0807 s  (36 s wall)
+[b2_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 2 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b2_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b2_in512_out128] avg 1.4240 s  p50 1.4240 s  (52 s wall)
+[b4_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 4 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b4_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b4_in512_out1] avg 0.1526 s  p50 0.1518 s  (36 s wall)
+[b4_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 4 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b4_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b4_in512_out128] avg 1.5489 s  p50 1.5499 s  (54 s wall)
+[b8_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 8 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b8_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b8_in512_out1] avg 0.2942 s  p50 0.2941 s  (38 s wall)
+[b8_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 8 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b8_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b8_in512_out128] avg 1.7222 s  p50 1.7224 s  (56 s wall)
+[b16_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 16 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b16_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b16_in512_out1] avg 0.5804 s  p50 0.5804 s  (41 s wall)
+[b16_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 16 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b16_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b16_in512_out128] avg 2.0823 s  p50 2.0831 s  (61 s wall)
+[b32_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 32 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b32_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b32_in512_out1] avg 1.1956 s  p50 1.1952 s  (49 s wall)
+[b32_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 32 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b32_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b32_in512_out128] avg 2.8261 s  p50 2.8243 s  (71 s wall)
+[b64_in512_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 64 --input-len 512 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b64_in512_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b64_in512_out1] avg 2.3922 s  p50 2.3924 s  (65 s wall)
+[b64_in512_out128] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 64 --input-len 512 --output-len 128 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b64_in512_out128.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b64_in512_out128] avg 4.2682 s  p50 4.2697 s  (90 s wall)
+[b1_in128_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 128 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b1_in128_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in128_out1] avg 0.0149 s  p50 0.0149 s  (34 s wall)
+[b1_in2048_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 2048 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b1_in2048_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in2048_out1] avg 0.1587 s  p50 0.1587 s  (36 s wall)
+[b1_in8192_out1] + /usr/bin/python3 -m vllm.entrypoints.cli.main bench latency --model Qwen/Qwen3-8B --dtype bfloat16 --max-model-len 16384 --batch-size 1 --input-len 8192 --output-len 1 --num-iters-warmup 3 --num-iters 10 --output-json /root/llm-perfsim/data/rtx5090/vllm/b1_in8192_out1.json --max-num-batched-tokens 16384 --no-enforce-eager
+[b1_in8192_out1] avg 0.6815 s  p50 0.6815 s  (43 s wall)
+vllm grid: 17 ok, 0 failed, 0 skipped -> /root/llm-perfsim/data/rtx5090/vllm_latency.jsonl
