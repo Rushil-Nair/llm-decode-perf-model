@@ -1,0 +1,38 @@
+# MEASURED data (owner's own logs). Nothing in this file is a model output.
+provenance:
+  date: 2026-10-08
+  who: Rushil Anil Nair
+  llama_cpp_commit: 3d65c90d
+  gpu: NVIDIA GeForce RTX 5090
+  model_file: Qwen3-8B-Q4_K_M.gguf
+  server_flags: "llama-server -c 65536 -np 16 -ngl 99"   # 16 slots -> 4096 ctx per slot
+  workload: "closed-loop clients, 200 prompts, max 192 new tokens, greedy, cache_prompt off, 3 repeats per user count"
+  metric: "aggregate decode throughput, tokens/s"
+  change: "slot-ordering patch (keep busy slots on consecutive sequence ids)"
+
+throughput_tok_s:
+  # users: [before_patch, after_patch]
+  1: [228.3, 228.1]
+  4: [262.5, 487.8]
+  8: [333.6, 878.9]
+  16: [1143.6, 1136.2]
+kv_unified_8_users_before_patch_tok_s: 639.0   # --kv-unified, 8 users (no patch needed)
+
+counters:
+  gpu_run_before:
+    ubatches: 20000
+    single_sequence_ubatches: 11383
+    tokens: 64474            # 3.22 tokens/ubatch (includes prompt ubatches)
+  gpu_run_after:
+    ubatches: 4000
+    ubatches_with_all_8_sequences: 3311
+    tokens_per_ubatch: 13.2  # includes prompt ubatches
+  cpu_check_master:          # separate CPU run on master, 8 clients, 16 slots
+    forward_passes_per_generation_step_before: 4.34
+    forward_passes_per_generation_step_after: 1.05
+
+mechanism: >
+  With per-slot KV (no --kv-unified), llama.cpp's split_equal only batches
+  consecutive sequence ids into one ubatch. LRU slot selection scattered the
+  busy slot ids, so one decode step became several forward passes, each
+  re-reading all weights (decode is memory-bandwidth-bound).

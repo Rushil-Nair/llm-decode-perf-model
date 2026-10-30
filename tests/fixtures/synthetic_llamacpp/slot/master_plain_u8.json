@@ -1,0 +1,1 @@
+{"policy": "master_plain", "users": 8, "synthetic": true, "passes": [{"throughput_tok_s": 300.0, "latency_p50_s": 1.0, "failed": 0, "requests": 10}, {"throughput_tok_s": 310.0, "latency_p50_s": 1.0, "failed": 0, "requests": 10}, {"throughput_tok_s": 320.0, "latency_p50_s": 1.0, "failed": 0, "requests": 10}]}

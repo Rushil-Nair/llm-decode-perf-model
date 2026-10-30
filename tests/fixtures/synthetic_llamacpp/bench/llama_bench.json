@@ -1,0 +1,1 @@
+[{"n_prompt": 512, "n_gen": 0, "avg_ts": 9000.0, "stddev_ts": 10.0}, {"n_prompt": 0, "n_gen": 128, "avg_ts": 200.0, "stddev_ts": 1.0}]

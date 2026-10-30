@@ -1,0 +1,8 @@
+{"engine": "vllm", "batch": 1, "input_len": 512, "output_len": 1, "avg_latency_s": 0.05, "p50_latency_s": 0.049}
+{"engine": "vllm", "batch": 1, "input_len": 512, "output_len": 128, "avg_latency_s": 1.32, "p50_latency_s": 1.446}
+{"engine": "vllm", "batch": 8, "input_len": 512, "output_len": 1, "avg_latency_s": 0.08, "p50_latency_s": 0.08}
+{"engine": "vllm", "batch": 8, "input_len": 512, "output_len": 128, "avg_latency_s": 1.604, "p50_latency_s": 1.604}
+{"engine": "vllm", "batch": 16, "input_len": 512, "output_len": 128, "avg_latency_s": 2.0, "p50_latency_s": 2.0}
+{"engine": "vllm", "batch": 1, "input_len": 2048, "output_len": 1, "avg_latency_s": 0.2, "p50_latency_s": 0.2}
+this line is garbage and must be skipped
+{"engine": "vllm", "batch": 4}

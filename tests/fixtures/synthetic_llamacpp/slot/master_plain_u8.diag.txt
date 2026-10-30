@@ -1,0 +1,2 @@
+DIAG decode_calls=100 ubatches=420 passes_per_step=4.20 hist_passes=[0]
+DIAG decode_calls=200 ubatches=860 passes_per_step=4.30 hist_passes=[0]

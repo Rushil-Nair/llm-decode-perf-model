@@ -1,0 +1,1 @@
+{"policy": "fix_plain", "users": 1, "synthetic": true, "passes": [{"throughput_tok_s": 200.0, "latency_p50_s": 1.0, "failed": 0, "requests": 10}]}

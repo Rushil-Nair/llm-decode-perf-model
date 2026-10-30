@@ -1,0 +1,10 @@
+{"probe": "pointer_chase", "footprint_bytes": 4194304, "stride_bytes": 64, "latency_cycles": 380.0, "latency_ns": 200.0}
+{"probe": "pointer_chase", "footprint_bytes": 4194304, "stride_bytes": 128, "latency_cycles": 475.0, "latency_ns": 250.0}
+{"probe": "pointer_chase", "footprint_bytes": 4194304, "stride_bytes": 256, "latency_cycles": 475.0, "latency_ns": 250.0}
+{"probe": "pointer_chase", "footprint_bytes": 2147483648, "stride_bytes": 64, "latency_cycles": 988.0, "latency_ns": 520.0}
+{"probe": "pointer_chase", "footprint_bytes": 2147483648, "stride_bytes": 128, "latency_cycles": 1235.0, "latency_ns": 650.0}
+{"probe": "pointer_chase", "footprint_bytes": 2147483648, "stride_bytes": 256, "latency_cycles": 1235.0, "latency_ns": 650.0}
+{"probe": "stream", "blocks_per_sm": 1, "threads_per_block": 256, "bytes_per_thread_in_flight": 64, "bytes_in_flight_total": 2162688, "GBps": 2176.563673314249}
+{"probe": "stream", "blocks_per_sm": 2, "threads_per_block": 256, "bytes_per_thread_in_flight": 64, "bytes_in_flight_total": 4325376, "GBps": 2350.823351424043}
+{"probe": "stream", "blocks_per_sm": 4, "threads_per_block": 256, "bytes_per_thread_in_flight": 64, "bytes_in_flight_total": 8650752, "GBps": 2827.313215003966}
+{"probe": "stream", "blocks_per_sm": 8, "threads_per_block": 256, "bytes_per_thread_in_flight": 64, "bytes_in_flight_total": 17301504, "GBps": 2961.1206822723857}

@@ -1,0 +1,1 @@
+{"part": 7, "purpose": "SYNTHETIC fixture", "policy": "master_plain", "users": 8, "passes": [{"throughput_tok_s": 1134.813886648889, "latency_p50_s": 1.0, "failed": 0, "requests": 10}]}

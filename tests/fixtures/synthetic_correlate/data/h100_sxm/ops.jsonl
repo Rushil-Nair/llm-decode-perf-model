@@ -1,0 +1,9 @@
+{"op": "gemm", "dtype": "bf16", "shape": {"M": 1, "N": 4096, "K": 4096}, "us": 13.36151880597015, "flops": 33554432.0, "bytes": 33570816.0}
+{"op": "gemm", "dtype": "bf16", "shape": {"M": 16, "N": 4096, "K": 4096}, "us": 14.42071471215352, "flops": 536870912.0, "bytes": 33816576.0}
+{"op": "gemm", "dtype": "bf16", "shape": {"M": 256, "N": 4096, "K": 4096}, "us": 20.487780732700134, "flops": 8589934592.0, "bytes": 37748736.0}
+{"op": "gemm", "dtype": "bf16", "shape": {"M": 4096, "N": 4096, "K": 4096}, "us": 198.42482274164442, "flops": 137438953472.0, "bytes": 100663296.0}
+{"op": "rmsnorm", "dtype": "bf16", "shape": {"tokens": 1, "hidden": 4096}, "us": 3.0, "flops": 16384.0, "bytes": 16384.0}
+{"op": "rmsnorm", "dtype": "bf16", "shape": {"tokens": 64, "hidden": 4096}, "us": 3.0, "flops": 1048576.0, "bytes": 1048576.0}
+{"op": "rmsnorm", "dtype": "bf16", "shape": {"tokens": 4096, "hidden": 4096}, "us": 40.06499343283582, "flops": 67108864.0, "bytes": 67108864.0}
+{"op": "attn_decode", "dtype": "bf16", "shape": {"batch": 8, "kv_len": 1024}, "us": 16.69374726368159, "flops": 134217728.0, "bytes": 33554432.0}
+{"op": "attn_decode", "dtype": "bf16", "shape": {"batch": 8, "kv_len": 8192}, "us": 133.54997810945272, "flops": 1073741824.0, "bytes": 268435456.0}
