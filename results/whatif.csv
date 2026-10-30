@@ -1,0 +1,136 @@
+gpu,scenario,knob,value,batch,metric,unit,baseline,projected,ratio,label,calib_mode
+h100_sxm,baseline,-,-,1,decode tok/s,tok/s,121.51735642523248,121.51735642523248,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,1,decode TPOT,ms,8.229277112486253,8.229277112486253,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,8,decode tok/s,tok/s,937.7762503083023,937.7762503083023,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,8,decode TPOT,ms,8.530819582357655,8.530819582357655,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,32,decode tok/s,tok/s,3250.7450146385404,3250.7450146385404,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,32,decode TPOT,ms,9.843897277670106,9.843897277670106,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,64,decode tok/s,tok/s,5548.415795840808,5548.415795840808,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,64,decode TPOT,ms,11.534824056981373,11.534824056981373,1.0,Projection (not measured),empirical
+h100_sxm,baseline,-,-,1,TTFT (prompt 1024),ms,23.857641678674582,23.857641678674582,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,1,decode tok/s,tok/s,121.51735642523248,68.9365626895197,0.5672980775543383,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,1,decode TPOT,ms,8.229277112486253,14.50609025146576,1.762741739423955,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,8,decode tok/s,tok/s,937.7762503083023,529.4795975795479,0.5646118649363073,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,8,decode TPOT,ms,8.530819582357655,15.109175191208566,1.7711282070078496,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,32,decode tok/s,tok/s,3250.7450146385404,1804.3080647607453,0.5550444764617662,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,32,decode TPOT,ms,9.843897277670106,17.735330581833463,1.8016574209956744,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,64,decode tok/s,tok/s,5548.415795840808,3030.7071044282707,0.5462292690284933,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,64,decode TPOT,ms,11.534824056981373,21.117184140455997,1.8307330945091413,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.5,1,TTFT (prompt 1024),ms,23.857641678674582,26.50000399829409,1.1107553862702788,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,1,decode tok/s,tok/s,121.51735642523248,96.88469061166748,0.797290967000907,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,1,decode TPOT,ms,8.229277112486253,10.321548158812757,1.254247246474652,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,8,decode tok/s,tok/s,937.7762503083023,746.0177953369304,0.7955179021559464,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,8,decode TPOT,ms,8.530819582357655,10.723604785307959,1.2570427356692833,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,32,decode tok/s,tok/s,3250.7450146385404,2565.258771097123,0.7891294947913229,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,32,decode TPOT,ms,9.843897277670106,12.474375045724559,1.2672191403318915,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,64,decode tok/s,tok/s,5548.415795840808,4345.18588919213,0.7831399176048341,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,64,decode TPOT,ms,11.534824056981373,14.728944084806248,1.2769110315030472,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,0.75,1,TTFT (prompt 1024),ms,23.857641678674582,24.662399390118544,1.0337316538777301,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,1,decode tok/s,tok/s,121.51735642523248,121.51735642523248,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,1,decode TPOT,ms,8.229277112486253,8.229277112486253,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,8,decode tok/s,tok/s,937.7762503083023,937.7762503083023,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,8,decode TPOT,ms,8.530819582357655,8.530819582357655,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,32,decode tok/s,tok/s,3250.7450146385404,3250.7450146385404,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,32,decode TPOT,ms,9.843897277670106,9.843897277670106,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,64,decode tok/s,tok/s,5548.415795840808,5548.415795840808,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,64,decode TPOT,ms,11.534824056981373,11.534824056981373,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.0,1,TTFT (prompt 1024),ms,23.857641678674582,23.857641678674582,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,1,decode tok/s,tok/s,121.51735642523248,162.94590378753736,1.3409269966121684,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,1,decode TPOT,ms,8.229277112486253,6.137006066159752,0.7457527535253484,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,8,decode tok/s,tok/s,937.7762503083023,1262.2209854197813,1.3459724374602309,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,8,decode TPOT,ms,8.530819582357655,6.338034379407352,0.742957264330717,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,32,decode tok/s,tok/s,3250.7450146385404,4436.176207046224,1.3646644652439757,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,32,decode TPOT,ms,9.843897277670106,7.213419509615653,0.7327808596681085,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,64,decode tok/s,tok/s,5548.415795840808,7673.213169568897,1.382955685354525,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,64,decode TPOT,ms,11.534824056981373,8.340704029156498,0.7230889684969529,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,1.5,1,TTFT (prompt 1024),ms,23.857641678674582,23.16508443293132,0.9709712613228527,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,1,decode tok/s,tok/s,121.51735642523248,196.43005877957316,1.6164773869190707,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,1,decode TPOT,ms,8.229277112486253,5.0908705429965,0.6186291302880226,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,8,decode tok/s,tok/s,937.7762503083023,1526.239361430753,1.627509078982314,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,8,decode TPOT,ms,8.530819582357655,5.241641777932201,0.6144358964960753,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,32,decode tok/s,tok/s,3250.7450146385404,5425.401836826174,1.6689718241187366,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,32,decode TPOT,ms,9.843897277670106,5.898180625588426,0.5991712895021627,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,64,decode tok/s,tok/s,5548.415795840808,9490.417918758389,1.7104734518765836,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,64,decode TPOT,ms,11.534824056981373,6.74364401524406,0.5846334527454292,Projection (not measured),empirical
+h100_sxm,HBM BW (ideal),BW x,2.0,1,TTFT (prompt 1024),ms,23.857641678674582,22.818805810059686,0.956456891984279,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,1,decode tok/s,tok/s,121.51735642523248,71.22377059355034,0.5861201452104753,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,1,decode TPOT,ms,8.229277112486253,14.040256387248261,1.706134839710894,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,8,decode tok/s,tok/s,937.7762503083023,547.1596063058428,0.5834649855186236,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,8,decode TPOT,ms,8.530819582357655,14.62096234408116,1.7138989053664149,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,32,decode tok/s,tok/s,3250.7450146385404,1865.9253740811198,0.5739993034453972,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,32,decode TPOT,ms,9.843897277670106,17.149667636498318,1.7421623928767136,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,64,decode tok/s,tok/s,5548.415795840808,3136.3279915119692,0.5652654932355677,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,64,decode TPOT,ms,11.534824056981373,20.406029016482652,1.769080214459972,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.5,1,TTFT (prompt 1024),ms,23.857641678674582,26.295437181525003,1.1021809085610281,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,1,decode tok/s,tok/s,121.51735642523248,98.3785321873318,0.8095842032892018,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,1,decode TPOT,ms,8.229277112486253,10.164819272723099,1.2352019665615652,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,8,decode tok/s,tok/s,937.7762503083023,757.6226401761123,0.8078927568564859,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,8,decode TPOT,ms,8.530819582357655,10.55934653449687,1.2377880498533054,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,32,decode tok/s,tok/s,3250.7450146385404,2606.4299206113883,0.8017946374982612,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,32,decode TPOT,ms,9.843897277670106,12.27732990131336,1.2472021553052217,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,64,decode tok/s,tok/s,5548.415795840808,4416.937553561585,0.7960718367344786,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,64,decode TPOT,ms,11.534824056981373,14.489677344066994,1.256168041444656,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,0.75,1,TTFT (prompt 1024),ms,23.857641678674582,24.593573287540142,1.0308467877411112,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,1,decode tok/s,tok/s,121.51735642523248,121.51735642523248,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,1,decode TPOT,ms,8.229277112486253,8.229277112486253,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,8,decode tok/s,tok/s,937.7762503083023,937.7762503083023,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,8,decode TPOT,ms,8.530819582357655,8.530819582357655,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,32,decode tok/s,tok/s,3250.7450146385404,3250.7450146385404,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,32,decode TPOT,ms,9.843897277670106,9.843897277670106,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,64,decode tok/s,tok/s,5548.415795840808,5548.415795840808,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,64,decode TPOT,ms,11.534824056981373,11.534824056981373,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.0,1,TTFT (prompt 1024),ms,23.857641678674582,23.857641678674582,1.0,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,1,decode tok/s,tok/s,121.51735642523248,158.78288440216167,1.3066683564652595,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,1,decode TPOT,ms,8.229277112486253,6.2979080129771585,0.7653051327462731,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,8,decode tok/s,tok/s,937.7762503083023,1229.508291009225,1.3110891757015741,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,8,decode TPOT,ms,8.530819582357655,6.506666167686685,0.7627246250926389,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,32,decode tok/s,tok/s,3250.7450146385404,4315.162665560861,1.3274380630068199,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,32,decode TPOT,ms,9.843897277670106,7.415711174781592,0.753330816606893,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,64,decode tok/s,tok/s,5548.415795840808,7453.698427072443,1.3433921864074914,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,64,decode TPOT,ms,11.534824056981373,8.586341482175715,0.7443842610654205,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,1.5,1,TTFT (prompt 1024),ms,23.857641678674582,23.21834417158623,0.9732036587815889,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,1,decode tok/s,tok/s,121.51735642523248,187.40047033975253,1.5421704014360844,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,1,decode TPOT,ms,8.229277112486253,5.3361659028231045,0.6484367739575276,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,8,decode tok/s,tok/s,937.7762503083023,1454.883702443275,1.5514187973570124,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,8,decode TPOT,ms,8.530819582357655,5.498721297492791,0.6445712799816491,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,32,decode tok/s,tok/s,3250.7450146385404,5155.822905864997,1.5860434708498008,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,32,decode TPOT,ms,9.843897277670106,6.206574698987131,0.6304997425223162,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,64,decode tok/s,tok/s,5548.415795840808,8991.139581896574,1.620487705452157,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,64,decode TPOT,ms,11.534824056981373,7.118118834331339,0.6170981715168119,Projection (not measured),empirical
+h100_sxm,HBM BW (Little's-Law cap),BW x,2.0,1,TTFT (prompt 1024),ms,23.857641678674582,22.900000394811688,0.9598601866537843,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,1,decode tok/s,tok/s,121.51735642523248,119.1998054817843,0.9809282310640609,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,1,decode TPOT,ms,8.229277112486253,8.389275435124905,1.0194425731995205,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,8,decode tok/s,tok/s,937.7762503083023,919.6983402243823,0.9807225763309992,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,8,decode TPOT,ms,8.530819582357655,8.69850433572405,1.0196563474057263,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,32,decode tok/s,tok/s,3250.7450146385404,3185.6477412760823,0.979974660248861,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,32,decode TPOT,ms,9.843897277670106,10.04505287429604,1.020434548528075,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,64,decode tok/s,tok/s,5548.415795840808,5433.3605908965965,0.9792634133457592,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,64,decode TPOT,ms,11.534824056981373,11.779082011827034,1.0211756983582099,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,0.75,1,TTFT (prompt 1024),ms,23.857641678674582,30.48704900465989,1.2778735390225546,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,1,decode tok/s,tok/s,121.51735642523248,122.92460568373076,1.0115806441145232,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,1,decode TPOT,ms,8.229277112486253,8.135067787590645,0.9885519318880798,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,8,decode tok/s,tok/s,937.7762503083023,948.7571095485748,1.0117094661297537,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,8,decode TPOT,ms,8.530819582357655,8.432084375954194,0.9884260585456932,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,32,decode tok/s,tok/s,3250.7450146385404,3290.3348417574157,1.0121786934812165,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,32,decode TPOT,ms,9.843897277670106,9.72545395498664,0.987967842477172,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,64,decode tok/s,tok/s,5548.415795840808,5618.470010856535,1.0126259850727555,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,64,decode TPOT,ms,11.534824056981373,11.391001442800833,0.9875314427450247,Projection (not measured),empirical
+h100_sxm,SM count,SMs x,1.25,1,TTFT (prompt 1024),ms,23.857641678674582,19.914913832525656,0.8347394139265165,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,1,decode tok/s,tok/s,121.51735642523248,178.84687588549457,1.4717805023641701,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,1,decode TPOT,ms,8.229277112486253,5.591375275910566,0.6794491423100568,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,8,decode tok/s,tok/s,937.7762503083023,1370.4034849944476,1.461333110690226,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,8,decode TPOT,ms,8.530819582357655,5.837696771496764,0.6843066736013897,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,32,decode tok/s,tok/s,3250.7450146385404,4448.117848011428,1.3683379742123596,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,32,decode TPOT,ms,9.843897277670106,7.194054000683884,0.730813599305112,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,64,decode tok/s,tok/s,5548.415795840808,7097.98981569008,1.2792822450348549,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,64,decode TPOT,ms,11.534824056981373,9.016637338437459,0.7816883286555377,Projection (not measured),empirical
+h100_sxm,FP8 weights,weight bytes x,0.5,1,TTFT (prompt 1024),ms,23.857641678674582,23.71154451589589,0.9938762948682693,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,1,decode tok/s,tok/s,121.51735642523248,171.05994177409877,1.4076996637048222,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,1,decode TPOT,ms,8.229277112486253,5.845904012527941,0.7103788015180545,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,8,decode tok/s,tok/s,937.7762503083023,1356.356067284278,1.446353612429792,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,8,decode TPOT,ms,8.530819582357655,5.898156238588406,0.6913938551444946,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,32,decode tok/s,tok/s,3250.7450146385404,4816.648624140028,1.4817060712082966,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,32,decode TPOT,ms,9.843897277670106,6.64362350195585,0.6748976868162008,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,64,decode tok/s,tok/s,5548.415795840808,8506.06938255391,1.5330627147536802,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,64,decode TPOT,ms,11.534824056981373,7.524039262043297,0.6522890357819914,Projection (not measured),empirical
+h100_sxm,TP=2 (NVLink),GPUs,2,1,TTFT (prompt 1024),ms,23.857641678674582,14.001981116460376,0.5868971168670122,Projection (not measured),empirical

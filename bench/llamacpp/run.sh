@@ -194,7 +194,7 @@ else
     NVCC="$(command -v nvcc 2>/dev/null || true)"
     if [ -z "$NVCC" ]; then for c in /usr/local/cuda/bin/nvcc /usr/local/cuda-*/bin/nvcc /usr/bin/nvcc; do [ -x "$c" ] && NVCC="$c" && break; done; fi
     GB="$W/gemv"; mkdir -p "$GB"
-    GEMV_SRC="${GEMV_SRC:-$KIT/gemv/q4gemv.cu}"   # the llm-perfsim repo keeps it in kernels/q4gemv.cu
+    GEMV_SRC="${GEMV_SRC:-$KIT/gemv/q4gemv.cu}"   # the llm-decode-perf-model repo keeps it in kernels/q4gemv.cu
     # fallback when -arch=native fails: the numeric arch setup.sh built for (90 = H100, 120 = RTX 5090)
     GEMV_ARCH="$(sed -n 's/^arch=\([0-9][0-9]*\)[af]\{0,1\}$/\1/p' "$W/setup_ok" 2>/dev/null | head -n1)"
     GEMV_ARCH="${GEMV_ARCH:-90}"
@@ -373,7 +373,7 @@ def read(p, default=""):
     try: return Path(p).read_text().strip()
     except Exception: return default
 out = []
-out.append("# H100 results: llama.cpp slot-order fix + roofline check\n")
+out.append(f"# {read(R/'meta/gpu_name.txt','GPU')} results: llama.cpp slot-order fix + roofline check\n")
 out.append(f"- GPU: {read(R/'meta/gpu_name.txt','?')}  ({read(R/'meta/cuda_driver_version.txt')})")
 out.append(f"- llama.cpp: {read(R/'meta/llama_commit.txt','?')} + diag_counter.patch (build-master) / + slot_order.patch (build-fix)")
 out.append(f"- model: Qwen3-8B-Q4_K_M.gguf  sha256 {read(R/'meta/model_sha256.txt','?').split(' ')[0]}")

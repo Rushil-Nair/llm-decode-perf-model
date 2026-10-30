@@ -163,9 +163,12 @@ def correlation_scatter(results: Path, out: Path) -> Optional[Path]:
                         zorder=0, label="+-15%")
         ax.set_xscale("log")
         ax.set_yscale("log")
+        cand = (1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000) if hi / lo > 20 else (1, 2, 3, 5, 7, 10, 15, 20, 30, 50)
+        ticks = [t for t in cand if lo <= t <= hi]
         for axis in (ax.xaxis, ax.yaxis):   # plain numbers instead of 2x10^1
             axis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
             axis.set_minor_formatter(NullFormatter())
+        ax.set_xticks(ticks); ax.set_yticks(ticks)
         ax.set_xlim(lo, hi)
         ax.set_ylim(lo, hi)
         ax.set_aspect("equal")
@@ -178,7 +181,15 @@ def correlation_scatter(results: Path, out: Path) -> Optional[Path]:
 
 
 def slot_fix(results: Path, out: Path) -> Optional[Path]:
-    df = _read(results / "level3_llamacpp_slots.csv")
+    """Measured bars; markers = pass-level model (perfsim.slot_pass_model) when its CSV exists, else the
+    op-level model from correlate.py."""
+    pm = results / "level3_slot_pass_model.csv"
+    if pm.exists():
+        df = _read(pm).rename(columns={"gpu": "gpu"})
+        pred_label = "pass-level model (s fitted on master, 1 user)"
+    else:
+        df = _read(results / "level3_llamacpp_slots.csv")
+        pred_label = "model prediction"
     if df is None:
         return None
     gpus = sorted(df["gpu"].unique())
@@ -194,13 +205,14 @@ def slot_fix(results: Path, out: Path) -> Optional[Path]:
             pred = [db["predicted_tok_s"].get(u, float("nan")) for u in users]
             ax.bar(xs, meas, width=0.37, color=bcol[build], label=f"{build} measured", zorder=3)
             ax.scatter(xs, pred, marker="_", s=260, linewidths=2.5, color=INK, zorder=4,
-                       label="model prediction" if i == 0 else None)
+                       label=pred_label if i == 0 else None)
         # measured speedup labels above each user group
         for j, u in enumerate(users):
             m = d[(d["build"] == "master") & (d["users"] == u)]["measured_tok_s"]
             f = d[(d["build"] == "fix") & (d["users"] == u)]["measured_tok_s"]
             if len(m) and len(f):
-                ax.annotate(f"{f.iloc[0] / m.iloc[0]:.2f}x", (j, max(m.iloc[0], f.iloc[0])), xytext=(0, 4),
+                top = max(m.iloc[0], f.iloc[0], d[d["users"] == u]["predicted_tok_s"].max())
+                ax.annotate(f"{f.iloc[0] / m.iloc[0]:.2f}x", (j, top), xytext=(0, 6),
                             textcoords="offset points", ha="center", fontsize=8, color=INK2)
         ax.grid(axis="x", visible=False)
         ax.set_xticks(range(len(users)))
@@ -245,7 +257,69 @@ def whatif_bw(results: Path, out: Path) -> Optional[Path]:
     return _save(fig, out, "whatif_bw.png")
 
 
-ALL = (littles_law, ops_sol, correlation_scatter, slot_fix, whatif_bw)
+def three_ceiling(results: Path, out: Path) -> Optional[Path]:
+    """Level 1: plain Little's Law vs the three-ceiling model, predicted vs measured GEMV bandwidth."""
+    ll = _read(results / "level1_gemv.csv")
+    tc = _read(results / "level1_gemv_model.csv")
+    if ll is None or tc is None:
+        return None
+    tc = tc[tc["fitted_on"] == tc["predicted_on"]]
+    gpus = sorted(ll["gpu"].unique())
+    col = _gpu_colors(gpus)
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.2), sharex=True, sharey=True)
+    panels = [(axes[0], "Plain Little's Law (memory latency only)",
+               {g: (ll[ll.gpu == g].measured_GBps, ll[ll.gpu == g].pred_plain_GBps) for g in gpus}),
+              (axes[1], "Three ceilings: memory / SM throughput / per-warp",
+               {g: (tc[tc.predicted_on == g].measured_GBps, tc[tc.predicted_on == g].predicted_GBps) for g in gpus})]
+    lo, hi = 100, 4000
+    for ax, title, d in panels:
+        ax.plot([lo, hi], [lo, hi], color=INK2, linewidth=1, linestyle="--", zorder=1)
+        for g in gpus:
+            m, p = d[g]
+            err = (abs(p / m - 1)).mean() * 100
+            ax.scatter(m, p, s=22, color=col[g], edgecolor="white", linewidth=0.6, zorder=3,
+                       label=f"{g} (MAPE {err:.0f}%)")
+        ax.set_xscale("log"); ax.set_yscale("log"); ax.set_xlim(lo, hi); ax.set_ylim(lo, hi)
+        ax.set_title(title)
+        ax.set_xlabel("measured bandwidth (GB/s, log)")
+        ax.legend(loc="upper left", fontsize=8)
+    axes[0].set_ylabel("predicted bandwidth (GB/s, log)")
+    fig.suptitle("4-bit decode GEMV, every kernel x occupancy x ILP x shape (fitted and scored on the same GPU)",
+                 fontsize=9, color=INK2, y=1.0)
+    return _save(fig, out, "level1_three_ceiling.png")
+
+
+
+def kernel_ladder(results: Path, out: Path) -> Optional[Path]:
+    """H100 GEMV kernel ladder: best timed GB/s per kernel vs the memory ceiling and the stream peak."""
+    df = _read(results / "h100_kernel_ladder.csv")
+    if df is None:
+        return None
+    fig, ax = plt.subplots(figsize=(8.6, 3.9))
+    xs = range(len(df))
+    ax.bar(xs, df["GBps"], width=0.62, color=SERIES[0], zorder=3)
+    for x, (g, v) in enumerate(zip(df["GBps"], df["vs_v4"])):
+        ax.annotate(f"{g:.0f}\n{v:.2f}x v4", (x, g), xytext=(0, 3), textcoords="offset points", ha="center",
+                    fontsize=8, color=INK2)
+    ceil = df["mem_ceiling_GBps"].max()
+    ax.axhline(ceil, color=INK, linewidth=1.2, linestyle="--", zorder=2)
+    ax.annotate(f"model memory ceiling ~{ceil:.0f} GB/s", (-0.4, ceil), xytext=(0, 4),
+                textcoords="offset points", ha="left", fontsize=8, color=INK)
+    ax.axhspan(1900, 2100, color=GRID, alpha=0.7, zorder=1)
+    ax.annotate("v7 prediction, written before the run: 1.9-2.1 TB/s", (-0.4, 1905), fontsize=7.5, color=INK2,
+                va="bottom")
+    ax.set_xticks(list(xs))
+    short = {"v2": "x via L1", "v3": "x in shared mem", "v4": "+ streaming loads", "v5": "fewer instructions",
+             "v6": "no bank conflicts", "v7": "both fixes"}
+    ax.set_xticklabels([f"{k}\n{short.get(k, '')}" for k in df["kernel"]], fontsize=8)
+    ax.set_ylabel("achieved bandwidth (GB/s)")
+    ax.set_ylim(0, ceil * 1.3)
+    ax.grid(axis="x", visible=False)
+    ax.set_title("H100 4-bit GEMV, gate_proj (12288x4096): each kernel version changes one thing")
+    return _save(fig, out, "kernel_ladder.png")
+
+
+ALL = (littles_law, three_ceiling, kernel_ladder, ops_sol, correlation_scatter, slot_fix, whatif_bw)
 
 
 def make_all(results="results", out="figures") -> List[Path]:

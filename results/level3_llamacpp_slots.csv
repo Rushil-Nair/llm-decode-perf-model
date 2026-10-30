@@ -1,0 +1,17 @@
+gpu,kind,calib_from,build,users,passes_per_step,k_source,context_len,measured_tok_s,predicted_tok_s,err_pct,source
+h100_sxm,calibrated (own GPU),h100_sxm,fix,1,1.0,DIAG counter,512,204.24246465406824,373.0585057524655,82.65472186909133,data/h100_sxm/llamacpp/slot/fix_plain_u1.json
+h100_sxm,calibrated (own GPU),h100_sxm,fix,4,1.03,DIAG counter,512,466.6555099419459,1464.6457885619357,213.8601725165839,data/h100_sxm/llamacpp/slot/fix_plain_u4.json
+h100_sxm,calibrated (own GPU),h100_sxm,fix,8,1.12,DIAG counter,512,575.6374264835789,2547.239838329643,342.5076829854648,data/h100_sxm/llamacpp/slot/fix_plain_u8.json
+h100_sxm,calibrated (own GPU),h100_sxm,fix,16,1.76,DIAG counter,512,769.7063439657696,3167.2441989032804,311.4873449768701,data/h100_sxm/llamacpp/slot/fix_plain_u16.json
+h100_sxm,calibrated (own GPU),h100_sxm,master,1,1.0,DIAG counter,512,201.61489016183137,373.0585057524655,85.03519529386968,data/h100_sxm/llamacpp/slot/master_plain_u1.json
+h100_sxm,calibrated (own GPU),h100_sxm,master,4,2.79,DIAG counter,512,258.05154162115934,538.0348664198267,108.49899327852327,data/h100_sxm/llamacpp/slot/master_plain_u4.json
+h100_sxm,calibrated (own GPU),h100_sxm,master,8,3.81,DIAG counter,512,316.9264456033132,792.8917077273707,150.1816174469101,data/h100_sxm/llamacpp/slot/master_plain_u8.json
+h100_sxm,calibrated (own GPU),h100_sxm,master,16,1.49,DIAG counter,512,775.2449485106641,3693.325746783531,376.4075862575874,data/h100_sxm/llamacpp/slot/master_plain_u16.json
+rtx5090,calibrated (own GPU),rtx5090,fix,1,1.0,DIAG counter,512,237.25220354443147,279.5135369766064,17.81283073489366,data/rtx5090/llamacpp/slot/fix_plain_u1.json
+rtx5090,calibrated (own GPU),rtx5090,fix,4,1.01,DIAG counter,512,629.386199703737,1081.3494484773003,71.81016186664247,data/rtx5090/llamacpp/slot/fix_plain_u4.json
+rtx5090,calibrated (own GPU),rtx5090,fix,8,1.08,DIAG counter,512,842.2738900722169,1899.687091292859,125.54267841900915,data/rtx5090/llamacpp/slot/fix_plain_u8.json
+rtx5090,calibrated (own GPU),rtx5090,fix,16,1.58,DIAG counter,512,1026.2799410473224,2515.093867635779,145.0689882011254,data/rtx5090/llamacpp/slot/fix_plain_u16.json
+rtx5090,calibrated (own GPU),rtx5090,master,1,1.0,DIAG counter,512,237.20177329300927,279.5135369766064,17.837878316082616,data/rtx5090/llamacpp/slot/master_plain_u1.json
+rtx5090,calibrated (own GPU),rtx5090,master,4,2.93,DIAG counter,512,290.2250987874947,381.1842397676007,31.340894140484746,data/rtx5090/llamacpp/slot/master_plain_u4.json
+rtx5090,calibrated (own GPU),rtx5090,master,8,3.53,DIAG counter,512,407.95667561795636,629.6761982835627,54.34879140775293,data/rtx5090/llamacpp/slot/master_plain_u8.json
+rtx5090,calibrated (own GPU),rtx5090,master,16,1.49,DIAG counter,512,1042.544661705284,2650.7042813066673,154.25330718886676,data/rtx5090/llamacpp/slot/master_plain_u16.json
