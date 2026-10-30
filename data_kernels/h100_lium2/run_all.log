@@ -1,0 +1,9 @@
+== [0 min] gpu_tag=h100_lium2
+== [0 min] nvcc: /usr/local/cuda/bin/nvcc
+== [0 min] ncu: /usr/local/cuda/bin/ncu
+== [0 min] nsight compute counters available: true
+== [0 min] stage micro: start
+== [0 min] stage micro: done
+== [0 min] stage deep: start
+== [1 min] stage deep: done
+== [1 min] all stages finished

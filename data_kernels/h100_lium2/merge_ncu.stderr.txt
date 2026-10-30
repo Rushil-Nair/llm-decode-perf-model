@@ -1,0 +1,1 @@
+merge_ncu: 306 ncu rows, 306 configs matched, 306/306 timed records enriched

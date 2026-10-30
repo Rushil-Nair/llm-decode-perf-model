@@ -104,3 +104,25 @@ def test_slot_pass_model_exact_on_synthetic(tmp_path):
     (sp,) = r["speedup"]
     assert sp["predicted"] == pytest.approx(sp["measured"], rel=1e-6)
 
+
+# ------------------------------------------------------------------- v6/v7 shared-memory swizzle
+def _swz(c):  # same formula as swz() in kernels/gemv_sweep.cu
+    return (c & ~7) | ((c & 7) ^ ((c >> 3) & 3))
+
+
+def test_swizzle_is_a_permutation_within_each_128_byte_line():
+    for line in range(64):
+        cs = range(8 * line, 8 * line + 8)
+        assert sorted(_swz(c) for c in cs) == list(cs)
+
+
+def test_swizzle_removes_quarter_warp_bank_conflicts():
+    # lane l reads chunk i of group g = l + 32 j; a quarter-warp (8 lanes x 16 B) must hit 8 distinct
+    # 16-byte slots of a 128-byte bank line. Unswizzled it hits only 2 (a 4-way conflict).
+    for j in range(8):
+        for i in range(4):
+            for q in range(4):
+                lanes = range(8 * q, 8 * q + 8)
+                plain = {((l + 32 * j) * 4 + i) & 7 for l in lanes}
+                swz = {_swz((l + 32 * j) * 4 + i) & 7 for l in lanes}
+                assert len(plain) == 2 and len(swz) == 8

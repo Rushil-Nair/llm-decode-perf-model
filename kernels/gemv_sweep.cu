@@ -1,4 +1,4 @@
-// gemv_sweep.cu: the q4gemv.cu v2/v3/v4 kernels (plus v5) with the two latency-hiding knobs exposed.
+// gemv_sweep.cu: the q4gemv.cu v2/v3/v4 kernels (plus v5-v7) with the two latency-hiding knobs exposed.
 //
 // Same weight format as q4gemv.cu: symmetric int4, groups of 32 along K, one fp16 scale per group,
 // w = (q - 8) * scale; row n is K/2 bytes, a group is 16 bytes (one uint4 load) + a 2-byte scale.
@@ -27,6 +27,14 @@
 //            so its correctness tolerance is 2e-3 instead of 1e-4 (reported as "tol").
 //            Built to test the three-ceiling model's prediction (perfsim/gemv_model.py) that the H100
 //            kernels are limited by SM instruction throughput, not memory.
+//   v6<ILP>  v4 + swizzled x in shared memory (no bank conflicts)
+//   v7<ILP>  v5 + swizzled x in shared memory (no bank conflicts)
+//            Nsight Compute on v3/v4/v5 showed shared-memory bank conflicts on the x reads: lane l reads
+//            the 16-byte chunks of group g = l + 32j at byte offset 64g, so the 8 lanes of a quarter-warp
+//            hit only 2 of the 8 16-byte bank slots (4-way conflict, 4x the shared-memory load wavefronts).
+//            v6/v7 store chunk c at swz(c) = (c & ~7) | ((c & 7) ^ ((c >> 3) & 3)), which keeps each
+//            group's 4 chunks inside one 128-byte line and gives the 8 lanes 8 different slots.
+//            v4 vs v6 and v5 vs v7 isolate the bank conflicts; v4 vs v5 and v6 vs v7 the instruction count.
 //
 // Shapes (Qwen3-8B): q_proj 4096x4096, gate_proj 12288x4096, down_proj 4096x12288 (N x K).
 // Correctness: every config is checked against a CPU double-precision reference (as in q4gemv.cu).
@@ -226,6 +234,108 @@ __global__ void gemv_v5(const uint8_t* __restrict__ W, const half* __restrict__ 
     }
 }
 
+// ---------------------------------------------------------------------------------------------- v6 / v7
+// Shared-memory swizzle of 16-byte x chunks (chunk c = activations 8c..8c+7; group g = chunks 4g..4g+3).
+__device__ __forceinline__ int swz(int c) { return (c & ~7) | ((c & 7) ^ ((c >> 3) & 3)); }
+
+// One group's dot product with x read from the swizzled layout. FAST = v5 math (fp16 bit trick, x stored
+// in the v5 permuted pair order), otherwise v4 math (int -> float, x stored in natural half2 order).
+template <bool FAST>
+__device__ __forceinline__ float group_dot_swz(uint4 v, const uint4* xs4, int g) {
+    const uint32_t w[4] = {v.x, v.y, v.z, v.w};
+    if constexpr (FAST) {
+        const half2 bias = __halves2half2(__ushort_as_half((unsigned short)0x6408),
+                                          __ushort_as_half((unsigned short)0x6408));
+        half2 acc = __halves2half2(__ushort_as_half((unsigned short)0), __ushort_as_half((unsigned short)0));
+        #pragma unroll
+        for (int i = 0; i < 4; ++i) {
+            const uint4 xc = xs4[swz(4 * g + i)];
+            const uint32_t xw[4] = {xc.x, xc.y, xc.z, xc.w};
+            #pragma unroll
+            for (int m = 0; m < 4; ++m) {
+                const uint32_t t = ((w[i] >> (4 * m)) & 0x000F000Fu) | 0x64006400u;
+                half2 h, xh;
+                memcpy(&h, &t, sizeof(h));
+                memcpy(&xh, &xw[m], sizeof(xh));
+                acc = __hfma2(__hsub2(h, bias), xh, acc);
+            }
+        }
+        const float2 f = __half22float2(acc);
+        return f.x + f.y;
+    } else {
+        float part = 0.f;
+        #pragma unroll
+        for (int i = 0; i < 4; ++i) {
+            const uint4 xc = xs4[swz(4 * g + i)];
+            const uint32_t xw[4] = {xc.x, xc.y, xc.z, xc.w};
+            #pragma unroll
+            for (int b = 0; b < 4; ++b) {
+                const uint32_t byte = (w[i] >> (8 * b)) & 0xFFu;
+                half2 xh;
+                memcpy(&xh, &xw[b], sizeof(xh));
+                const float2 xf = __half22float2(xh);
+                part += (float)((int)(byte & 0xFu) - 8) * xf.x + (float)((int)(byte >> 4) - 8) * xf.y;
+            }
+        }
+        return part;
+    }
+}
+
+template <int ILP, bool FAST>
+__device__ __forceinline__ float lane_row_dot_swz(const uint4* __restrict__ w4, const half* __restrict__ s,
+                                                  const uint4* xs4, int G, int lane) {
+    float acc = 0.f;
+    int g = lane;
+    #pragma unroll 1
+    for (; g + 32 * (ILP - 1) < G; g += 32 * ILP) {
+        uint4 wv[ILP];
+        half sv[ILP];
+        #pragma unroll
+        for (int i = 0; i < ILP; ++i) {
+            wv[i] = __ldcs(w4 + g + 32 * i);
+            sv[i] = s[g + 32 * i];
+        }
+        #pragma unroll
+        for (int i = 0; i < ILP; ++i)
+            acc += __half2float(sv[i]) * group_dot_swz<FAST>(wv[i], xs4, g + 32 * i);
+    }
+    for (; g < G; g += 32)
+        acc += __half2float(s[g]) * group_dot_swz<FAST>(__ldcs(w4 + g), xs4, g);
+    return acc;
+}
+
+template <int ILP, bool FAST>
+__device__ __forceinline__ void gemv_swizzled(const uint8_t* __restrict__ W, const half* __restrict__ S,
+                                              const half* __restrict__ x, float* __restrict__ y, int N, int K) {
+    extern __shared__ half2 xs[];
+    for (int i = threadIdx.x; i < K / 2; i += blockDim.x) {     // half2 i -> chunk c = i / 4, slot m = i % 4
+        const int c = i >> 2, m = i & 3;
+        xs[4 * swz(c) + m] = FAST ? __halves2half2(x[8 * c + m], x[8 * c + m + 4])
+                                  : __halves2half2(x[2 * i], x[2 * i + 1]);
+    }
+    __syncthreads();
+    const uint4* xs4 = reinterpret_cast<const uint4*>(xs);
+    const int lane = threadIdx.x & 31, warp = threadIdx.x / 32, warps = blockDim.x / 32;
+    const int G = K / GROUP;
+    #pragma unroll 1
+    for (int n = blockIdx.x * warps + warp; n < N; n += gridDim.x * warps) {
+        const uint4* w4 = reinterpret_cast<const uint4*>(W + (size_t)n * (K / 2));
+        float acc = lane_row_dot_swz<ILP, FAST>(w4, S + (size_t)n * G, xs4, G, lane);
+        acc = warp_sum(acc);
+        if (lane == 0) y[n] = acc;
+    }
+}
+template <int ILP>
+__global__ void gemv_v6(const uint8_t* __restrict__ W, const half* __restrict__ S,
+                        const half* __restrict__ x, float* __restrict__ y, int N, int K) {
+    gemv_swizzled<ILP, false>(W, S, x, y, N, K);
+}
+template <int ILP>
+__global__ void gemv_v7(const uint8_t* __restrict__ W, const half* __restrict__ S,
+                        const half* __restrict__ x, float* __restrict__ y, int N, int K) {
+    gemv_swizzled<ILP, true>(W, S, x, y, N, K);
+}
+
 using KernelFn = void (*)(const uint8_t*, const half*, const half*, float*, int, int);
 
 struct KernelVariant { const char* name; int ilp; bool persistent; KernelFn fn; };
@@ -234,6 +344,8 @@ static const KernelVariant VARIANTS[] = {
     {"v3", 1, true, gemv_v3<1>},  {"v3", 2, true, gemv_v3<2>},  {"v3", 4, true, gemv_v3<4>},
     {"v4", 1, true, gemv_v4<1>},  {"v4", 2, true, gemv_v4<2>},  {"v4", 4, true, gemv_v4<4>},
     {"v5", 1, true, gemv_v5<1>},  {"v5", 2, true, gemv_v5<2>},  {"v5", 4, true, gemv_v5<4>},
+    {"v6", 1, true, gemv_v6<1>},  {"v6", 2, true, gemv_v6<2>},  {"v6", 4, true, gemv_v6<4>},
+    {"v7", 1, true, gemv_v7<1>},  {"v7", 2, true, gemv_v7<2>},  {"v7", 4, true, gemv_v7<4>},
 };
 
 struct Shape { const char* name; int N, K; };
@@ -377,7 +489,7 @@ int main(int argc, char** argv) {
                         else maxabs = std::max(maxabs, std::fabs((double)hy[n] - ref[n]));
                     }
                     const double maxrel = finite ? maxabs / (refmax > 0 ? refmax : 1) : INFINITY;
-                    const double tol = strcmp(v.name, "v5") == 0 ? 2e-3 : 1e-4;  // v5 sums in fp16 within a group
+                    const double tol = (!strcmp(v.name, "v5") || !strcmp(v.name, "v7")) ? 2e-3 : 1e-4;  // fp16 sums in a group
                     const bool ok = finite && maxrel < tol;
 
                     double us = 0.0;

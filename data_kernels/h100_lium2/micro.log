@@ -1,0 +1,14 @@
+[00:27:25] nvcc: /usr/local/cuda/bin/nvcc (Build cuda_13.0.r13.0/compiler.36424714_0)
+[00:27:25] GPU: NVIDIA H100 80GB HBM3, 580.173.02 cc=90
+[00:27:27] built pointer_chase (-arch=native)
+[00:27:28] built stream_bw (-arch=native)
+[00:27:32] built gemv_sweep (-arch=native)
+[00:27:32] running pointer_chase (timeout 1200s)
+[00:27:35] pointer_chase: 33 JSON records
+[00:27:35] running stream_bw (timeout 1200s)
+[00:27:36] stream_bw: 249 JSON records
+[00:27:36] running gemv_sweep (timeout 1800s)
+[00:27:37] gemv_sweep: 306 JSON records
+[00:27:39] ncu: /usr/local/cuda/bin/ncu  sudo: no  counters_ok: true
+[00:27:39] running ncu on gemv_sweep --ncu (timeout 3600s)
+[00:27:48] done; results in /root/llm-perfsim/data/h100_lium2

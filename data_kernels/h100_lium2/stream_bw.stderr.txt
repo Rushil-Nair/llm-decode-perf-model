@@ -1,0 +1,3 @@
+GPU NVIDIA H100 80GB HBM3, 132 SMs, L2 52.4 MB, max threads/SM 2048, smem/SM 233472, smem/block opt-in 232448
+buffer 419.4 MB (8.0x L2)
+peak achievable read bandwidth: 3144.3 GB/s (bps=4 tpb=512 loads=8)
