@@ -1,0 +1,9 @@
+== [0 min] gpu_tag=h100_vast2
+== [0 min] nvcc: /usr/local/cuda/bin/nvcc
+== [0 min] ncu: /usr/local/cuda/bin/ncu
+== [0 min] nsight compute counters available: false
+== [0 min] stage micro: start
+== [0 min] stage micro: done
+== [0 min] stage extra: start
+== [0 min] stage extra: done
+== [0 min] all stages finished

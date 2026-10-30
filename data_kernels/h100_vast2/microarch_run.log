@@ -1,0 +1,62 @@
+[01:41:10] nvcc: /usr/local/cuda/bin/nvcc (Build cuda_13.0.r13.0/compiler.36424714_0)
+[01:41:10] GPU: NVIDIA H100 80GB HBM3, 580.173.02 cc=90
+[01:41:12] built pointer_chase (-arch=native)
+Compiling entry function '_Z5chasePKjjPy' for 'sm_90'
+Used 12 registers, used 0 barriers
+Compiling entry function '_Z12scatter_nextPjPKjj' for 'sm_90'
+Used 10 registers, used 0 barriers
+[01:41:15] built stream_bw (-arch=native)
+Compiling entry function '_Z11stream_readILi8EEvPK5uint4mPj' for 'sm_90'
+Used 32 registers, used 0 barriers
+Compiling entry function '_Z11stream_readILi4EEvPK5uint4mPj' for 'sm_90'
+Used 32 registers, used 0 barriers
+Compiling entry function '_Z11stream_readILi2EEvPK5uint4mPj' for 'sm_90'
+Used 25 registers, used 0 barriers
+Compiling entry function '_Z11stream_readILi1EEvPK5uint4mPj' for 'sm_90'
+Used 16 registers, used 0 barriers
+[01:41:19] built gemv_sweep (-arch=native)
+Compiling entry function '_Z7gemv_v7ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 58 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v7ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 56 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v7ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 39 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v6ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 58 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v6ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 60 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v6ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 48 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v5ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 42 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v5ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 40 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v5ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 30 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v4ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 43 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v4ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 40 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v4ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 37 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v3ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 42 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v3ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 40 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v3ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 37 registers, used 1 barriers
+Compiling entry function '_Z7gemv_v2ILi4EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 32 registers, used 0 barriers
+Compiling entry function '_Z7gemv_v2ILi2EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 36 registers, used 0 barriers
+Compiling entry function '_Z7gemv_v2ILi1EEvPKhPK6__halfS4_Pfii' for 'sm_90'
+Used 32 registers, used 0 barriers
+[01:41:19] running pointer_chase (timeout 1200s)
+[01:41:23] pointer_chase: 33 JSON records
+[01:41:23] running stream_bw (timeout 1200s)
+[01:41:24] stream_bw: 249 JSON records
+[01:41:24] running gemv_sweep (timeout 1800s)
+[01:41:26] gemv_sweep: 306 JSON records
+[01:41:28] ncu: /usr/local/cuda/bin/ncu  sudo: no  counters_ok: false
+[01:41:28] ERROR ncu_counters: GPU performance counters not accessible to ncu (see ncu_probe.txt); skipped ncu
+[01:41:29] done; results in /root/llm-perfsim/data/h100_vast2

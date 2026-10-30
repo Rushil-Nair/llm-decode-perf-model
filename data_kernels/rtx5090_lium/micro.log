@@ -1,0 +1,14 @@
+[01:37:33] nvcc: /usr/local/cuda/bin/nvcc (Build cuda_13.0.r13.0/compiler.36424714_0)
+[01:37:33] GPU: NVIDIA GeForce RTX 5090, 595.99.02 cc=120
+[01:37:34] built pointer_chase (-arch=native)
+[01:37:35] built stream_bw (-arch=native)
+[01:37:37] built gemv_sweep (-arch=native)
+[01:37:37] running pointer_chase (timeout 1200s)
+[01:37:40] pointer_chase: 33 JSON records
+[01:37:40] running stream_bw (timeout 1200s)
+[01:37:40] stream_bw: 185 JSON records
+[01:37:40] running gemv_sweep (timeout 1800s)
+[01:37:42] gemv_sweep: 284 JSON records
+[01:37:43] ncu: /usr/local/cuda/bin/ncu  sudo: no  counters_ok: true
+[01:37:43] running ncu on gemv_sweep --ncu (timeout 3600s)
+[01:37:49] done; results in /root/llm-perfsim/data/rtx5090_lium

@@ -1,0 +1,70 @@
+NVIDIA GeForce RTX 5090: SMs=170  L0=141 ns  peak=1682 GB/s  latency x BW = 0.24 MB in flight needed
+
+stream_table: alpha=0.692  n=184  MAPE before=3.8%  after=4.1%
+                       config  bytes_in_flight  measured_GBps  pred_littles_GBps  pred_loaded_GBps  err_littles_pct  err_loaded_pct
+ stream bps=1 tpb=64 B/thr=16         1.74e+05            465           1.23e+03               774              165            66.4
+ stream bps=2 tpb=64 B/thr=16         3.48e+05            913           1.68e+03          1.09e+03             84.1              19
+ stream bps=3 tpb=64 B/thr=16         5.22e+05       1.29e+03           1.68e+03          1.24e+03             30.3           -3.56
+ stream bps=4 tpb=64 B/thr=16         6.96e+05       1.52e+03           1.68e+03          1.34e+03               11           -11.8
+ stream bps=5 tpb=64 B/thr=16          8.7e+05        1.6e+03           1.68e+03           1.4e+03                5           -12.7
+ stream bps=6 tpb=64 B/thr=16         1.04e+06       1.65e+03           1.68e+03          1.44e+03             1.73           -12.9
+ stream bps=7 tpb=64 B/thr=16         1.22e+06       1.65e+03           1.68e+03          1.47e+03             1.87           -10.8
+ stream bps=8 tpb=64 B/thr=16         1.39e+06       1.66e+03           1.68e+03           1.5e+03             1.39           -9.78
+ stream bps=9 tpb=64 B/thr=16         1.57e+06       1.67e+03           1.68e+03          1.52e+03             1.01           -8.96
+stream bps=10 tpb=64 B/thr=16         1.74e+06       1.66e+03           1.68e+03          1.53e+03             1.47           -7.61
+stream bps=11 tpb=64 B/thr=16         1.91e+06       1.67e+03           1.68e+03          1.54e+03            0.911           -7.34
+stream bps=12 tpb=64 B/thr=16         2.09e+06       1.67e+03           1.68e+03          1.56e+03            0.851           -6.74
+stream bps=13 tpb=64 B/thr=16         2.26e+06       1.67e+03           1.68e+03          1.56e+03            0.764           -6.26
+stream bps=14 tpb=64 B/thr=16         2.44e+06       1.67e+03           1.68e+03          1.57e+03            0.889           -5.66
+stream bps=15 tpb=64 B/thr=16         2.61e+06       1.67e+03           1.68e+03          1.58e+03            0.458           -5.65
+stream bps=16 tpb=64 B/thr=16         2.79e+06       1.67e+03           1.68e+03          1.59e+03            0.641            -5.1
+stream bps=17 tpb=64 B/thr=16         2.96e+06       1.67e+03           1.68e+03          1.59e+03            0.714           -4.71
+stream bps=18 tpb=64 B/thr=16         3.13e+06       1.67e+03           1.68e+03           1.6e+03            0.635           -4.49
+stream bps=19 tpb=64 B/thr=16         3.31e+06       1.67e+03           1.68e+03           1.6e+03            0.886           -3.99
+stream bps=20 tpb=64 B/thr=16         3.48e+06       1.67e+03           1.68e+03           1.6e+03            0.778           -3.86
+
+gemv_table_stream_alpha: alpha=0.692  n=284  MAPE before=58.5%  after=49.4%
+               config  bytes_in_flight  measured_GBps  pred_littles_GBps  pred_loaded_GBps  err_littles_pct  err_loaded_pct
+q_proj v2 ilp=1 bps=1         7.83e+05            511           1.68e+03          1.37e+03              229             168
+q_proj v2 ilp=1 bps=2         1.57e+06            592           1.68e+03          1.52e+03              184             156
+q_proj v2 ilp=1 bps=3         2.35e+06            614           1.68e+03          1.57e+03              174             156
+q_proj v2 ilp=1 bps=4         2.36e+06            601           1.68e+03          1.57e+03              180             161
+q_proj v2 ilp=1 bps=5         2.36e+06            605           1.68e+03          1.57e+03              178             159
+q_proj v2 ilp=1 bps=6         2.36e+06            605           1.68e+03          1.57e+03              178             160
+q_proj v2 ilp=2 bps=1         1.57e+06            513           1.68e+03          1.52e+03              228             196
+q_proj v2 ilp=2 bps=2         3.13e+06            609           1.68e+03           1.6e+03              176             162
+q_proj v2 ilp=2 bps=3          4.7e+06            610           1.68e+03          1.62e+03              176             166
+q_proj v2 ilp=2 bps=4         4.72e+06            609           1.68e+03          1.62e+03              176             167
+q_proj v2 ilp=2 bps=5         4.72e+06            610           1.68e+03          1.62e+03              176             166
+q_proj v2 ilp=2 bps=6         4.72e+06            611           1.68e+03          1.62e+03              175             166
+q_proj v2 ilp=4 bps=1         3.13e+06            540           1.68e+03           1.6e+03              211             195
+q_proj v2 ilp=4 bps=2         6.27e+06            610           1.68e+03          1.64e+03              176             168
+q_proj v2 ilp=4 bps=3          9.4e+06            618           1.68e+03          1.65e+03              172             168
+q_proj v2 ilp=4 bps=4         9.44e+06            617           1.68e+03          1.65e+03              173             168
+q_proj v2 ilp=4 bps=5         9.44e+06            622           1.68e+03          1.65e+03              171             166
+q_proj v2 ilp=4 bps=6         9.44e+06            622           1.68e+03          1.65e+03              170             166
+q_proj v3 ilp=1 bps=1         7.83e+05            854           1.68e+03          1.37e+03               97            60.5
+q_proj v3 ilp=1 bps=2         1.57e+06       1.11e+03           1.68e+03          1.52e+03             51.5            36.5
+
+gemv_table_gemv_alpha: alpha=19.164  n=284  MAPE before=58.5%  after=29.3%
+               config  bytes_in_flight  measured_GBps  pred_littles_GBps  pred_loaded_GBps  err_littles_pct  err_loaded_pct
+q_proj v2 ilp=1 bps=1         7.83e+05            511           1.68e+03               545              229            6.64
+q_proj v2 ilp=1 bps=2         1.57e+06            592           1.68e+03               721              184            21.9
+q_proj v2 ilp=1 bps=3         2.35e+06            614           1.68e+03               835              174            36.1
+q_proj v2 ilp=1 bps=4         2.36e+06            601           1.68e+03               836              180            39.3
+q_proj v2 ilp=1 bps=5         2.36e+06            605           1.68e+03               836              178            38.2
+q_proj v2 ilp=1 bps=6         2.36e+06            605           1.68e+03               836              178            38.3
+q_proj v2 ilp=2 bps=1         1.57e+06            513           1.68e+03               721              228            40.6
+q_proj v2 ilp=2 bps=2         3.13e+06            609           1.68e+03               919              176            50.9
+q_proj v2 ilp=2 bps=3          4.7e+06            610           1.68e+03          1.04e+03              176            70.2
+q_proj v2 ilp=2 bps=4         4.72e+06            609           1.68e+03          1.04e+03              176              71
+q_proj v2 ilp=2 bps=5         4.72e+06            610           1.68e+03          1.04e+03              176            70.7
+q_proj v2 ilp=2 bps=6         4.72e+06            611           1.68e+03          1.04e+03              175            70.4
+q_proj v2 ilp=4 bps=1         3.13e+06            540           1.68e+03               919              211            70.1
+q_proj v2 ilp=4 bps=2         6.27e+06            610           1.68e+03          1.12e+03              176              84
+q_proj v2 ilp=4 bps=3          9.4e+06            618           1.68e+03          1.23e+03              172            99.9
+q_proj v2 ilp=4 bps=4         9.44e+06            617           1.68e+03          1.24e+03              173             100
+q_proj v2 ilp=4 bps=5         9.44e+06            622           1.68e+03          1.24e+03              171            98.7
+q_proj v2 ilp=4 bps=6         9.44e+06            622           1.68e+03          1.24e+03              170            98.7
+q_proj v3 ilp=1 bps=1         7.83e+05            854           1.68e+03               545               97           -36.2
+q_proj v3 ilp=1 bps=2         1.57e+06       1.11e+03           1.68e+03               721             51.5           -35.1

@@ -2,7 +2,9 @@
 # One entry point on a rented GPU (H100 VM or RTX 5090 container). From the repo root:
 #
 #     bash gpu/run_all.sh                 # everything, ~2-2.5 h
-#     ONLY="micro ops" bash gpu/run_all.sh   # subset: micro ops vllm llamacpp
+#     ONLY="micro ops" bash gpu/run_all.sh   # subset: micro ops vllm llamacpp deep
+#     GPU_TAG=h100_lium ONLY="micro deep" bash gpu/run_all.sh   # GEMV sweep (v2-v7) + Nsight Compute only
+#     GPU_TAG=h100_x ONLY="micro extra" bash gpu/run_all.sh     # sweep x3 + cuBLAS baseline (no counters needed)
 #
 # Writes data/<gpu_tag>/... and, at the end, results_<gpu_tag>.tar.gz in the repo root: send that back.
 # Every stage is independent: a failed stage writes data/<tag>/<stage>.error.txt and the run continues.
@@ -48,6 +50,19 @@ fi
 NVCC_PATH="$(find_nvcc)"; [ -n "$NVCC_PATH" ] && export PATH="$(dirname "$NVCC_PATH"):$PATH"
 say "nvcc: ${NVCC_PATH:-NOT FOUND}"
 NCU="$(command -v ncu 2>/dev/null || ls /usr/local/cuda*/bin/ncu /opt/nvidia/nsight-compute/*/ncu 2>/dev/null | head -n1 || true)"
+# Nsight Compute is not in every CUDA image: install the package matching nvcc's version.
+if [ -z "$NCU" ] && [ -n "$NVCC_PATH" ]; then
+    NV="$("$NVCC_PATH" --version | grep -o 'release [0-9]*\.[0-9]*' | awk '{print $2}')"
+    say "ncu missing: installing cuda-nsight-compute-${NV/./-}"
+    { $SUDO_CMD apt-get update -qq && $SUDO_CMD apt-get install -y -qq "cuda-nsight-compute-${NV/./-}"; } > "$D/ncu_install.log" 2>&1 \
+      || { . /etc/os-release; REPO="ubuntu${VERSION_ID//./}"
+           curl -fsSL -o /tmp/cuda-keyring.deb "https://developer.download.nvidia.com/compute/cuda/repos/$REPO/x86_64/cuda-keyring_1.1-1_all.deb" \
+           && $SUDO_CMD dpkg -i /tmp/cuda-keyring.deb && $SUDO_CMD apt-get update -qq \
+           && $SUDO_CMD apt-get install -y -qq "cuda-nsight-compute-${NV/./-}"; } >> "$D/ncu_install.log" 2>&1
+    NCU="$(command -v ncu 2>/dev/null || ls /usr/local/cuda*/bin/ncu /opt/nvidia/nsight-compute/*/ncu 2>/dev/null | head -n1 || true)"
+    [ -n "$NCU" ] && export PATH="$(dirname "$NCU"):$PATH"
+fi
+say "ncu: ${NCU:-NOT FOUND}"
 python3 - "$D" "$NCU" <<'EOF'
 import json, subprocess, sys, os
 d, ncu = sys.argv[1], sys.argv[2]
@@ -100,9 +115,11 @@ if want ops; then
     stage calib   python3 bench/fit_calib.py --data "$D"
 fi
 want llamacpp && stage llamacpp bash bench/run_llamacpp.sh "$TAG"
+want deep     && stage deep     bash bench/run_ncu_deep.sh "$D"
+want extra    && stage extra    bash bench/run_extra.sh "$D"
 
 # --- package ----------------------------------------------------------------------------------
 kill $SMI_PID 2>/dev/null
 say "all stages finished"
-tar -czf "$ROOT/results_$TAG.tar.gz" --exclude="*.nsys-rep" --exclude="*.ncu-rep" --exclude="*.sqlite" -C "$ROOT/data" "$TAG"
+tar -czf "$ROOT/results_$TAG.tar.gz" --exclude="*.nsys-rep" --exclude="*.sqlite" -C "$ROOT/data" "$TAG"
 say "SEND BACK: $ROOT/results_$TAG.tar.gz ($(du -h "$ROOT/results_$TAG.tar.gz" | cut -f1))"

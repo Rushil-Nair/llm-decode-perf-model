@@ -1,0 +1,11 @@
+== [0 min] gpu_tag=rtx5090_lium
+== [0 min] nvcc: /usr/local/cuda/bin/nvcc
+== [0 min] ncu missing: installing cuda-nsight-compute-13-0
+== [0 min] ncu: /usr/local/cuda/bin/ncu
+== [0 min] nsight compute counters available: true
+== [0 min] stage micro: start
+== [0 min] stage micro: done
+== [0 min] stage extra: start
+== [0 min] stage extra: done
+== [0 min] all stages finished
+== [0 min] SEND BACK: /root/llm-perfsim/results_rtx5090_lium.tar.gz (68K)

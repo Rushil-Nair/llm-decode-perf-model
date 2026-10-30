@@ -1,0 +1,32 @@
+[01:46:41] ncu: /usr/local/cuda/bin/ncu; profiling:
+v2_gate_proj_ilp4_b6 120 810.7
+v3_gate_proj_ilp1_b6 126 1431.4
+v4_gate_proj_ilp4_b4 153 1563.4
+v5_gate_proj_ilp2_b2 162 1574.1
+v6_gate_proj_ilp1_b6 177 1548.0
+v7_gate_proj_ilp4_b2 202 1600.5
+v4_q_proj_ilp1_b4 38 1222.2
+v5_q_proj_ilp1_b4 55 1248.6
+v6_q_proj_ilp4_b5 85 1196.9
+v7_q_proj_ilp4_b2 99 1269.3
+[01:46:41] profiling v2_gate_proj_ilp4_b6 (launch 120, timed 810.7 GB/s)
+[01:46:45]   ok: 1679707 bytes
+[01:46:45] profiling v3_gate_proj_ilp1_b6 (launch 126, timed 1431.4 GB/s)
+[01:46:48]   ok: 1468495 bytes
+[01:46:48] profiling v4_gate_proj_ilp4_b4 (launch 153, timed 1563.4 GB/s)
+[01:46:52]   ok: 1595685 bytes
+[01:46:52] profiling v5_gate_proj_ilp2_b2 (launch 162, timed 1574.1 GB/s)
+[01:46:56]   ok: 1455701 bytes
+[01:46:56] profiling v6_gate_proj_ilp1_b6 (launch 177, timed 1548.0 GB/s)
+[01:46:59]   ok: 1507994 bytes
+[01:46:59] profiling v7_gate_proj_ilp4_b2 (launch 202, timed 1600.5 GB/s)
+[01:47:03]   ok: 1536076 bytes
+[01:47:03] profiling v4_q_proj_ilp1_b4 (launch 38, timed 1222.2 GB/s)
+[01:47:06]   ok: 1678328 bytes
+[01:47:06] profiling v5_q_proj_ilp1_b4 (launch 55, timed 1248.6 GB/s)
+[01:47:10]   ok: 1400823 bytes
+[01:47:10] profiling v6_q_proj_ilp4_b5 (launch 85, timed 1196.9 GB/s)
+[01:47:14]   ok: 1580648 bytes
+[01:47:14] profiling v7_q_proj_ilp4_b2 (launch 99, timed 1269.3 GB/s)
+[01:47:17]   ok: 1462193 bytes
+[01:47:17] done

@@ -1,0 +1,1 @@
+GPU NVIDIA GeForce RTX 5090, 170 SMs, L2 100.7 MB, cc 12.0, block 256, mode ncu

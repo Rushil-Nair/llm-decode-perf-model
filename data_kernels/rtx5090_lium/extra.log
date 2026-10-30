@@ -1,0 +1,24 @@
+[01:37:50] built q4gemv (-arch=native)
+[01:37:50] built q4gemv (-arch=native)
+[01:37:50] q4gemv repeat 1
+[01:37:50] q4gemv repeat 1
+[01:37:53]   48 records
+[01:37:53]   48 records
+[01:37:53] q4gemv repeat 2
+[01:37:53] q4gemv repeat 2
+[01:37:55]   48 records
+[01:37:55]   48 records
+[01:37:55] q4gemv repeat 3
+[01:37:55] q4gemv repeat 3
+[01:37:58]   48 records
+[01:37:58]   48 records
+[01:37:58] gemv_sweep repeat 2
+[01:37:58] gemv_sweep repeat 2
+[01:37:59]   284 records
+[01:37:59]   284 records
+[01:37:59] gemv_sweep repeat 3
+[01:37:59] gemv_sweep repeat 3
+[01:38:00]   284 records
+[01:38:00]   284 records
+[01:38:00] done
+[01:38:00] done
