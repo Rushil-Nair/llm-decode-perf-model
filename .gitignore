@@ -9,3 +9,4 @@ results_*.tar.gz
 *.ncu-rep
 *.sqlite
 !data_kernels/**/ncu_deep/*.ncu-rep
+*.ncu-rep
