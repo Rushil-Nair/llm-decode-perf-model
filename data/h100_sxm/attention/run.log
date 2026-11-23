@@ -1,0 +1,26 @@
+== 19:47:20 gpu_tag=h100_sxm
+== 19:47:30 correctness tests (GPU: includes bf16 and FlashInfer agreement)
+== 19:47:41 matrix (fp16)
+== 19:51:00 matrix (bf16, llama8b only)
+== 19:51:58 matrix (page size 64)
+== 19:53:37 split sweep
+== 19:53:54 ncu llama8b,1,32768
+== 19:54:27 ncu llama8b,16,8192
+== 20:31:21 gpu_tag=h100_sxm
+== 20:31:31 correctness tests (GPU: includes bf16 and FlashInfer agreement)
+== 20:31:45 tune version 2 (tile config, split penalty) + ablation
+== 20:32:56 matrix (fp16)
+== 20:36:19 matrix (bf16, llama8b only)
+== 20:37:21 matrix (page size 64)
+== 20:38:52 ncu llama8b,1,32768
+== 20:39:37 ncu llama8b,16,8192
+== 20:40:23 ncu tp8_70b,1,131072
+== 20:58:50 gpu_tag=h100_sxm
+== 20:59:00 correctness tests (GPU: includes bf16 and FlashInfer agreement)
+== 20:59:06 tune version 2 (tile config, split penalty) + ablation
+== 21:00:03 matrix (fp16)
+== 21:03:17 matrix (bf16, llama8b only)
+== 21:04:15 matrix (page size 64)
+== 21:05:39 ncu llama8b,1,32768
+== 21:06:23 ncu llama8b,16,8192
+== 21:07:09 ncu tp8_70b,1,131072

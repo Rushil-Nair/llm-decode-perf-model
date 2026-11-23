@@ -1,0 +1,2 @@
+torch 2.12.0+cu130 cuda 13.0 | triton 3.7.0 | flashinfer 0.7.5.post1
+gpu NVIDIA H100 80GB HBM3 | SMs 132

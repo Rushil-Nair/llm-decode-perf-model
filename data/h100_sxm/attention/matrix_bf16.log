@@ -1,0 +1,170 @@
+version 2 settings from /root/v6/llm-decode-perf-model/data/h100_sxm/attention/tuned.json: {'block_n': 128, 'num_warps': 4, 'num_stages': 2, 'split_penalty': 512, 'program_overhead': 256, 'tree_min_chunks': 64}
+{
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "sms": 132,
+ "mem_gb": 79.2,
+ "torch": "2.12.0+cu130",
+ "cuda": "13.0",
+ "copy_gbps": 3033.717576552476,
+ "flashinfer": "0.7.5.post1",
+ "triton": "3.7.0",
+ "nvidia_smi": "name, driver_version, clocks.current.sm [MHz], clocks.current.memory [MHz], clocks.max.sm [MHz], power.limit [W], temperature.gpu\nNVIDIA H100 80GB HBM3, 580.196.07, 1980 MHz, 2619 MHz, 1980 MHz, 700.00 W, 33"
+}
+llama8b  B=1    ctx=512    skew=0 sdpa_gather           16.5 us      128 GB/s ( 4.2%)  err=0.0009765625
+llama8b  B=1    ctx=512    skew=0 triton_balanced       16.2 us      130 GB/s ( 4.3%)  err=0.0009765625
+llama8b  B=1    ctx=512    skew=0 sdpa_contig           11.7 us      180 GB/s ( 5.9%)  err=0.0009765625
+llama8b  B=1    ctx=512    skew=0 triton_balanced_v2      14.4 us      147 GB/s ( 4.8%)  err=0.0009765625
+llama8b  B=1    ctx=512    skew=0 triton_splitkv        16.2 us      131 GB/s ( 4.3%)  err=0.0009765625
+llama8b  B=1    ctx=512    skew=0 flashinfer_tc0        16.5 us      128 GB/s ( 4.2%)  err=0.0009765625
+llama8b  B=1    ctx=512    skew=0 flashinfer_tc1        15.7 us      135 GB/s ( 4.4%)  err=0.001953125
+llama8b  B=1    ctx=2048   skew=0 triton_splitkv        17.0 us      496 GB/s (16.3%)  err=0.00048828125
+llama8b  B=1    ctx=2048   skew=0 sdpa_gather           20.1 us      418 GB/s (13.8%)  err=0.00048828125
+llama8b  B=1    ctx=2048   skew=0 flashinfer_tc0        17.5 us      481 GB/s (15.9%)  err=0.00048828125
+llama8b  B=1    ctx=2048   skew=0 triton_balanced       17.7 us      476 GB/s (15.7%)  err=0.00048828125
+llama8b  B=1    ctx=2048   skew=0 sdpa_contig           12.6 us      667 GB/s (22.0%)  err=0.00048828125
+llama8b  B=1    ctx=2048   skew=0 triton_balanced_v2      14.5 us      581 GB/s (19.2%)  err=0.00048828125
+llama8b  B=1    ctx=2048   skew=0 flashinfer_tc1        17.7 us      476 GB/s (15.7%)  err=0.00048828125
+llama8b  B=1    ctx=8192   skew=0 triton_balanced       25.7 us     1306 GB/s (43.1%)  err=0.000244140625
+llama8b  B=1    ctx=8192   skew=0 sdpa_gather           43.1 us      779 GB/s (25.7%)  err=0.000244140625
+llama8b  B=1    ctx=8192   skew=0 flashinfer_tc1        25.8 us     1300 GB/s (42.9%)  err=0.000244140625
+llama8b  B=1    ctx=8192   skew=0 flashinfer_tc0        27.1 us     1237 GB/s (40.8%)  err=0.000244140625
+llama8b  B=1    ctx=8192   skew=0 triton_splitkv        23.7 us     1414 GB/s (46.6%)  err=0.000244140625
+llama8b  B=1    ctx=8192   skew=0 sdpa_contig           21.7 us     1547 GB/s (51.0%)  err=0.000244140625
+llama8b  B=1    ctx=8192   skew=0 triton_balanced_v2      23.3 us     1439 GB/s (47.4%)  err=0.000244140625
+llama8b  B=1    ctx=32768  skew=0 triton_balanced_v2      57.3 us     2342 GB/s (77.2%)  err=0.000244140625
+llama8b  B=1    ctx=32768  skew=0 flashinfer_tc0        59.9 us     2240 GB/s (73.8%)  err=0.000244140625
+llama8b  B=1    ctx=32768  skew=0 sdpa_gather          151.4 us      886 GB/s (29.2%)  err=0.000244140625
+llama8b  B=1    ctx=32768  skew=0 sdpa_contig           53.1 us     2527 GB/s (83.3%)  err=0.000244140625
+llama8b  B=1    ctx=32768  skew=0 triton_balanced       59.6 us     2250 GB/s (74.2%)  err=0.000244140625
+llama8b  B=1    ctx=32768  skew=0 flashinfer_tc1        58.0 us     2314 GB/s (76.3%)  err=0.0001220703125
+llama8b  B=1    ctx=32768  skew=0 triton_splitkv        60.7 us     2211 GB/s (72.9%)  err=0.0001220703125
+llama8b  B=4    ctx=512    skew=0 sdpa_contig           12.1 us      699 GB/s (23.0%)  err=0.001953125
+llama8b  B=4    ctx=512    skew=0 flashinfer_tc1        17.5 us      482 GB/s (15.9%)  err=0.001953125
+llama8b  B=4    ctx=512    skew=0 sdpa_gather           20.2 us      419 GB/s (13.8%)  err=0.001953125
+llama8b  B=4    ctx=512    skew=0 triton_balanced       17.1 us      494 GB/s (16.3%)  err=0.001953125
+llama8b  B=4    ctx=512    skew=0 triton_balanced_v2      15.4 us      549 GB/s (18.1%)  err=0.001953125
+llama8b  B=4    ctx=512    skew=0 flashinfer_tc0        17.0 us      497 GB/s (16.4%)  err=0.001953125
+llama8b  B=4    ctx=512    skew=0 triton_splitkv        16.5 us      512 GB/s (16.9%)  err=0.001953125
+llama8b  B=4    ctx=2048   skew=0 flashinfer_tc0        26.4 us     1273 GB/s (42.0%)  err=0.0009765625
+llama8b  B=4    ctx=2048   skew=0 triton_balanced       23.8 us     1410 GB/s (46.5%)  err=0.00048828125
+llama8b  B=4    ctx=2048   skew=0 sdpa_gather           42.5 us      791 GB/s (26.1%)  err=0.00048828125
+llama8b  B=4    ctx=2048   skew=0 sdpa_contig           20.9 us     1606 GB/s (53.0%)  err=0.00048828125
+llama8b  B=4    ctx=2048   skew=0 triton_balanced_v2      22.0 us     1529 GB/s (50.4%)  err=0.00048828125
+llama8b  B=4    ctx=2048   skew=0 flashinfer_tc1        25.9 us     1300 GB/s (42.9%)  err=0.00048828125
+llama8b  B=4    ctx=2048   skew=0 triton_splitkv        23.1 us     1457 GB/s (48.0%)  err=0.00048828125
+llama8b  B=4    ctx=8192   skew=0 flashinfer_tc1        58.0 us     2317 GB/s (76.4%)  err=0.00048828125
+llama8b  B=4    ctx=8192   skew=0 triton_balanced_v2      55.0 us     2440 GB/s (80.4%)  err=0.000244140625
+llama8b  B=4    ctx=8192   skew=0 triton_splitkv        59.6 us     2252 GB/s (74.2%)  err=0.000244140625
+llama8b  B=4    ctx=8192   skew=0 sdpa_gather          149.5 us      898 GB/s (29.6%)  err=0.000244140625
+llama8b  B=4    ctx=8192   skew=0 sdpa_contig           52.5 us     2556 GB/s (84.2%)  err=0.000244140625
+llama8b  B=4    ctx=8192   skew=0 triton_balanced       57.5 us     2334 GB/s (76.9%)  err=0.000244140625
+llama8b  B=4    ctx=8192   skew=0 flashinfer_tc0        57.0 us     2358 GB/s (77.7%)  err=0.00048828125
+llama8b  B=4    ctx=32768  skew=0 flashinfer_tc1       186.2 us     2884 GB/s (95.0%)  err=0.000244140625
+llama8b  B=4    ctx=32768  skew=0 sdpa_gather          544.5 us      986 GB/s (32.5%)  err=0.000244140625
+llama8b  B=4    ctx=32768  skew=0 triton_splitkv       196.4 us     2734 GB/s (90.1%)  err=0.000244140625
+llama8b  B=4    ctx=32768  skew=0 triton_balanced      196.0 us     2739 GB/s (90.3%)  err=0.000244140625
+llama8b  B=4    ctx=32768  skew=0 sdpa_contig          178.0 us     3017 GB/s (99.5%)  err=0.000244140625
+llama8b  B=4    ctx=32768  skew=0 triton_balanced_v2     184.1 us     2917 GB/s (96.2%)  err=0.000244140625
+llama8b  B=4    ctx=32768  skew=0 flashinfer_tc0       196.9 us     2727 GB/s (89.9%)  err=0.0
+llama8b  B=4    ctx=2048   skew=1 flashinfer_tc1        18.5 us      543 GB/s (17.9%)  err=0.00390625
+llama8b  B=4    ctx=2048   skew=1 triton_splitkv        18.4 us      544 GB/s (17.9%)  err=0.00390625
+llama8b  B=4    ctx=2048   skew=1 flashinfer_tc0        17.6 us      570 GB/s (18.8%)  err=0.00048828125
+llama8b  B=4    ctx=2048   skew=1 triton_balanced       17.9 us      561 GB/s (18.5%)  err=0.00390625
+llama8b  B=4    ctx=2048   skew=1 triton_balanced_v2      15.0 us      670 GB/s (22.1%)  err=0.00390625
+llama8b  B=4    ctx=8192   skew=1 flashinfer_tc0        29.8 us     1341 GB/s (44.2%)  err=0.001953125
+llama8b  B=4    ctx=8192   skew=1 flashinfer_tc1        28.4 us     1406 GB/s (46.3%)  err=0.001953125
+llama8b  B=4    ctx=8192   skew=1 triton_splitkv        48.7 us      819 GB/s (27.0%)  err=0.0009765625
+llama8b  B=4    ctx=8192   skew=1 triton_balanced       27.8 us     1434 GB/s (47.3%)  err=0.0009765625
+llama8b  B=4    ctx=8192   skew=1 triton_balanced_v2      25.4 us     1573 GB/s (51.8%)  err=0.0009765625
+llama8b  B=4    ctx=32768  skew=1 flashinfer_tc0        68.5 us     2327 GB/s (76.7%)  err=0.0009765625
+llama8b  B=4    ctx=32768  skew=1 triton_balanced       67.6 us     2358 GB/s (77.7%)  err=0.0009765625
+llama8b  B=4    ctx=32768  skew=1 flashinfer_tc1        66.7 us     2390 GB/s (78.8%)  err=0.0009765625
+llama8b  B=4    ctx=32768  skew=1 triton_balanced_v2      64.5 us     2472 GB/s (81.5%)  err=0.0009765625
+llama8b  B=4    ctx=32768  skew=1 triton_splitkv       155.3 us     1027 GB/s (33.8%)  err=0.0009765625
+llama8b  B=16   ctx=512    skew=0 triton_balanced       23.5 us     1440 GB/s (47.5%)  err=0.001953125
+llama8b  B=16   ctx=512    skew=0 triton_balanced_v2      21.2 us     1596 GB/s (52.6%)  err=0.001953125
+llama8b  B=16   ctx=512    skew=0 flashinfer_tc1        26.4 us     1279 GB/s (42.2%)  err=0.001953125
+llama8b  B=16   ctx=512    skew=0 flashinfer_tc0        26.8 us     1263 GB/s (41.6%)  err=0.001953125
+llama8b  B=16   ctx=512    skew=0 triton_splitkv        22.9 us     1474 GB/s (48.6%)  err=0.001953125
+llama8b  B=16   ctx=512    skew=0 sdpa_contig           17.8 us     1904 GB/s (62.8%)  err=0.001953125
+llama8b  B=16   ctx=512    skew=0 sdpa_gather           40.3 us      839 GB/s (27.6%)  err=0.001953125
+llama8b  B=16   ctx=2048   skew=0 triton_balanced_v2      55.6 us     2421 GB/s (79.8%)  err=0.0009765625
+llama8b  B=16   ctx=2048   skew=0 sdpa_contig           49.1 us     2738 GB/s (90.2%)  err=0.0009765625
+llama8b  B=16   ctx=2048   skew=0 sdpa_gather          146.5 us      918 GB/s (30.3%)  err=0.0009765625
+llama8b  B=16   ctx=2048   skew=0 triton_splitkv        56.0 us     2403 GB/s (79.2%)  err=0.0009765625
+llama8b  B=16   ctx=2048   skew=0 triton_balanced       56.9 us     2364 GB/s (77.9%)  err=0.0009765625
+llama8b  B=16   ctx=2048   skew=0 flashinfer_tc0        59.7 us     2251 GB/s (74.2%)  err=0.0009765625
+llama8b  B=16   ctx=2048   skew=0 flashinfer_tc1        58.6 us     2296 GB/s (75.7%)  err=0.0009765625
+llama8b  B=16   ctx=8192   skew=0 triton_balanced_v2     185.9 us     2890 GB/s (95.3%)  err=0.00048828125
+llama8b  B=16   ctx=8192   skew=0 flashinfer_tc0       197.5 us     2720 GB/s (89.7%)  err=0.0
+llama8b  B=16   ctx=8192   skew=0 sdpa_contig          174.6 us     3076 GB/s (101.4%)  err=0.00048828125
+llama8b  B=16   ctx=8192   skew=0 sdpa_gather          541.5 us      992 GB/s (32.7%)  err=0.00048828125
+llama8b  B=16   ctx=8192   skew=0 flashinfer_tc1       186.8 us     2876 GB/s (94.8%)  err=0.00048828125
+llama8b  B=16   ctx=8192   skew=0 triton_balanced      195.6 us     2747 GB/s (90.5%)  err=0.00048828125
+llama8b  B=16   ctx=8192   skew=0 triton_splitkv       185.9 us     2890 GB/s (95.2%)  err=0.00048828125
+llama8b  B=16   ctx=32768  skew=0 triton_balanced      737.4 us     2913 GB/s (96.0%)  err=0.000244140625
+llama8b  B=16   ctx=32768  skew=0 flashinfer_tc1       696.1 us     3085 GB/s (101.7%)  err=0.000244140625
+llama8b  B=16   ctx=32768  skew=0 sdpa_contig          672.0 us     3196 GB/s (105.3%)  err=0.000244140625
+llama8b  B=16   ctx=32768  skew=0 triton_balanced_v2     701.1 us     3063 GB/s (101.0%)  err=0.000244140625
+llama8b  B=16   ctx=32768  skew=0 sdpa_gather         2112.3 us     1017 GB/s (33.5%)  err=0.000244140625
+llama8b  B=16   ctx=32768  skew=0 triton_splitkv       702.3 us     3058 GB/s (100.8%)  err=0.000244140625
+llama8b  B=16   ctx=32768  skew=0 flashinfer_tc0       746.3 us     2878 GB/s (94.9%)  err=0.0
+llama8b  B=16   ctx=2048   skew=1 flashinfer_tc0        19.9 us      828 GB/s (27.3%)  err=0.00048828125
+llama8b  B=16   ctx=2048   skew=1 triton_splitkv        36.2 us      456 GB/s (15.0%)  err=0.00390625
+llama8b  B=16   ctx=2048   skew=1 triton_balanced       20.4 us      810 GB/s (26.7%)  err=0.00390625
+llama8b  B=16   ctx=2048   skew=1 flashinfer_tc1        20.5 us      804 GB/s (26.5%)  err=0.00390625
+llama8b  B=16   ctx=2048   skew=1 triton_balanced_v2      18.8 us      876 GB/s (28.9%)  err=0.00390625
+llama8b  B=16   ctx=8192   skew=1 flashinfer_tc0        36.5 us     1788 GB/s (58.9%)  err=0.001953125
+llama8b  B=16   ctx=8192   skew=1 triton_balanced       35.8 us     1823 GB/s (60.1%)  err=0.001953125
+llama8b  B=16   ctx=8192   skew=1 triton_splitkv       110.1 us      593 GB/s (19.5%)  err=0.001953125
+llama8b  B=16   ctx=8192   skew=1 triton_balanced_v2      32.9 us     1982 GB/s (65.3%)  err=0.001953125
+llama8b  B=16   ctx=8192   skew=1 flashinfer_tc1        35.6 us     1831 GB/s (60.4%)  err=0.001953125
+llama8b  B=16   ctx=32768  skew=1 triton_balanced      103.6 us     2512 GB/s (82.8%)  err=0.0009765625
+llama8b  B=16   ctx=32768  skew=1 flashinfer_tc1        98.0 us     2657 GB/s (87.6%)  err=0.0009765625
+llama8b  B=16   ctx=32768  skew=1 flashinfer_tc0       106.7 us     2439 GB/s (80.4%)  err=0.0009765625
+llama8b  B=16   ctx=32768  skew=1 triton_splitkv       406.6 us      640 GB/s (21.1%)  err=0.0009765625
+llama8b  B=16   ctx=32768  skew=1 triton_balanced_v2      97.7 us     2664 GB/s (87.8%)  err=0.0009765625
+llama8b  B=64   ctx=512    skew=0 triton_balanced       55.9 us     2420 GB/s (79.8%)  err=0.001953125
+llama8b  B=64   ctx=512    skew=0 flashinfer_tc0        67.1 us     2017 GB/s (66.5%)  err=0.00390625
+llama8b  B=64   ctx=512    skew=0 triton_balanced_v2      54.8 us     2468 GB/s (81.3%)  err=0.001953125
+llama8b  B=64   ctx=512    skew=0 flashinfer_tc1        57.4 us     2355 GB/s (77.6%)  err=0.001953125
+llama8b  B=64   ctx=512    skew=0 sdpa_gather          149.2 us      907 GB/s (29.9%)  err=0.001953125
+llama8b  B=64   ctx=512    skew=0 triton_splitkv        55.6 us     2435 GB/s (80.3%)  err=0.001953125
+llama8b  B=64   ctx=512    skew=0 sdpa_contig           50.6 us     2672 GB/s (88.1%)  err=0.001953125
+llama8b  B=64   ctx=2048   skew=0 sdpa_gather          543.6 us      989 GB/s (32.6%)  err=0.0009765625
+llama8b  B=64   ctx=2048   skew=0 flashinfer_tc0       219.6 us     2450 GB/s (80.8%)  err=0.0
+llama8b  B=64   ctx=2048   skew=0 flashinfer_tc1       183.5 us     2931 GB/s (96.6%)  err=0.0009765625
+llama8b  B=64   ctx=2048   skew=0 triton_splitkv       182.5 us     2947 GB/s (97.1%)  err=0.0009765625
+llama8b  B=64   ctx=2048   skew=0 triton_balanced_v2     191.7 us     2806 GB/s (92.5%)  err=0.0009765625
+llama8b  B=64   ctx=2048   skew=0 sdpa_contig          176.2 us     3052 GB/s (100.6%)  err=0.0009765625
+llama8b  B=64   ctx=2048   skew=0 triton_balanced      183.2 us     2937 GB/s (96.8%)  err=0.0009765625
+llama8b  B=64   ctx=8192   skew=0 flashinfer_tc1       693.8 us     3097 GB/s (102.1%)  err=0.00048828125
+llama8b  B=64   ctx=8192   skew=0 triton_balanced      697.8 us     3079 GB/s (101.5%)  err=0.00048828125
+llama8b  B=64   ctx=8192   skew=0 triton_balanced_v2     710.4 us     3024 GB/s (99.7%)  err=0.00048828125
+llama8b  B=64   ctx=8192   skew=0 sdpa_gather         2119.3 us     1014 GB/s (33.4%)  err=0.00048828125
+llama8b  B=64   ctx=8192   skew=0 triton_splitkv       697.1 us     3082 GB/s (101.6%)  err=0.00048828125
+llama8b  B=64   ctx=8192   skew=0 flashinfer_tc0       797.8 us     2693 GB/s (88.8%)  err=0.0
+llama8b  B=64   ctx=8192   skew=0 sdpa_contig          677.2 us     3173 GB/s (104.6%)  err=0.00048828125
+llama8b  B=64   ctx=32768  skew=0 sdpa_gather         8427.9 us     1019 GB/s (33.6%)  err=0.000244140625
+llama8b  B=64   ctx=32768  skew=0 triton_splitkv      2756.7 us     3116 GB/s (102.7%)  err=0.000244140625
+llama8b  B=64   ctx=32768  skew=0 flashinfer_tc0      3279.6 us     2620 GB/s (86.3%)  err=0.0
+llama8b  B=64   ctx=32768  skew=0 sdpa_contig         2677.7 us     3208 GB/s (105.8%)  err=0.000244140625
+llama8b  B=64   ctx=32768  skew=0 triton_balanced     2753.4 us     3120 GB/s (102.8%)  err=0.000244140625
+llama8b  B=64   ctx=32768  skew=0 flashinfer_tc1      2738.1 us     3138 GB/s (103.4%)  err=0.000244140625
+llama8b  B=64   ctx=32768  skew=0 triton_balanced_v2    2761.3 us     3111 GB/s (102.6%)  err=0.000244140625
+llama8b  B=64   ctx=2048   skew=1 triton_splitkv        89.6 us      474 GB/s (15.6%)  err=0.00390625
+llama8b  B=64   ctx=2048   skew=1 flashinfer_tc0        29.5 us     1439 GB/s (47.4%)  err=0.001953125
+llama8b  B=64   ctx=2048   skew=1 flashinfer_tc1        50.9 us      834 GB/s (27.5%)  err=0.00390625
+llama8b  B=64   ctx=2048   skew=1 triton_balanced_v2      31.2 us     1360 GB/s (44.8%)  err=0.00390625
+llama8b  B=64   ctx=2048   skew=1 triton_balanced       28.9 us     1471 GB/s (48.5%)  err=0.00390625
+llama8b  B=64   ctx=8192   skew=1 triton_balanced_v2      71.2 us     2343 GB/s (77.2%)  err=0.001953125
+llama8b  B=64   ctx=8192   skew=1 triton_balanced       80.8 us     2063 GB/s (68.0%)  err=0.001953125
+llama8b  B=64   ctx=8192   skew=1 triton_splitkv       326.5 us      511 GB/s (16.8%)  err=0.001953125
+llama8b  B=64   ctx=8192   skew=1 flashinfer_tc1       153.8 us     1084 GB/s (35.7%)  err=0.001953125
+llama8b  B=64   ctx=8192   skew=1 flashinfer_tc0        91.2 us     1829 GB/s (60.3%)  err=0.001953125
+llama8b  B=64   ctx=32768  skew=1 triton_balanced_v2     232.4 us     2856 GB/s (94.1%)  err=0.0009765625
+llama8b  B=64   ctx=32768  skew=1 triton_balanced      281.8 us     2356 GB/s (77.7%)  err=0.0009765625
+llama8b  B=64   ctx=32768  skew=1 flashinfer_tc0       310.7 us     2136 GB/s (70.4%)  err=0.0
+llama8b  B=64   ctx=32768  skew=1 flashinfer_tc1       579.4 us     1146 GB/s (37.8%)  err=0.0009765625
+llama8b  B=64   ctx=32768  skew=1 triton_splitkv      1273.5 us      521 GB/s (17.2%)  err=0.0009765625
+wrote 157 rows to /root/v6/llm-decode-perf-model/data/h100_sxm/attention/matrix_ps16_bfloat16.jsonl

@@ -1,0 +1,57 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /root/v6/llm-decode-perf-model
+plugins: anyio-4.15.1
+collecting ... collected 45 items
+
+tests/test_paged_decode.py::test_gqa_groups[4-4] PASSED
+tests/test_paged_decode.py::test_gqa_groups[8-2] PASSED
+tests/test_paged_decode.py::test_gqa_groups[28-4] PASSED
+tests/test_paged_decode.py::test_gqa_groups[8-1] PASSED
+tests/test_paged_decode.py::test_gqa_groups[48-2] PASSED
+tests/test_paged_decode.py::test_split_counts_agree[1] PASSED
+tests/test_paged_decode.py::test_split_counts_agree[2] PASSED
+tests/test_paged_decode.py::test_split_counts_agree[4] PASSED
+tests/test_paged_decode.py::test_split_counts_agree[16] PASSED
+tests/test_paged_decode.py::test_head_dim_128_and_page_size_64 PASSED
+tests/test_paged_decode.py::test_empty_splits_give_no_nan PASSED
+tests/test_paged_decode.py::test_large_logits_are_stable PASSED
+tests/test_paged_decode.py::test_reference_matches_sdpa_on_contiguous_kv PASSED
+tests/test_paged_decode.py::test_split_heuristic PASSED
+tests/test_paged_decode.py::test_bf16 PASSED
+tests/test_paged_decode.py::test_matches_flashinfer flashinfer 0.7.5.post1: LSE is log2
+PASSED
+tests/test_paged_decode.py::test_balanced_gqa_groups[4-4] PASSED
+tests/test_paged_decode.py::test_balanced_gqa_groups[8-2] PASSED
+tests/test_paged_decode.py::test_balanced_gqa_groups[28-4] PASSED
+tests/test_paged_decode.py::test_balanced_gqa_groups[8-1] PASSED
+tests/test_paged_decode.py::test_balanced_gqa_groups[48-2] PASSED
+tests/test_paged_decode.py::test_balanced_skewed_batch PASSED
+tests/test_paged_decode.py::test_balanced_head_dim_128_page_size_64 PASSED
+tests/test_paged_decode.py::test_plan_balanced_chunks PASSED
+tests/test_paged_decode.py::test_balanced_matches_flashinfer_skewed PASSED
+tests/test_paged_decode.py::test_v2_gqa_groups[4-4] PASSED
+tests/test_paged_decode.py::test_v2_gqa_groups[8-2] PASSED
+tests/test_paged_decode.py::test_v2_gqa_groups[28-4] PASSED
+tests/test_paged_decode.py::test_v2_gqa_groups[8-1] PASSED
+tests/test_paged_decode.py::test_v2_gqa_groups[48-2] PASSED
+tests/test_paged_decode.py::test_v2_blocked_merge_many_chunks PASSED
+tests/test_paged_decode.py::test_v2_blocked_merge_large_logits PASSED
+tests/test_paged_decode.py::test_v2_direct_path PASSED
+tests/test_paged_decode.py::test_v2_skewed_batch PASSED
+tests/test_paged_decode.py::test_v2_head_dim_128_page_size_64 PASSED
+tests/test_paged_decode.py::test_plan_wave_chunks_divides_evenly_and_fills_a_wave PASSED
+tests/test_paged_decode.py::test_plan_wave_split_penalty_prefers_no_split_for_short_requests PASSED
+tests/test_paged_decode.py::test_v2_occupancy_query_on_gpu 
+occupancy: {'ctas_per_sm': 4, 'n_regs': 103, 'smem': 38912, 'n_spills': 0, 'occupancy_error': None}
+PASSED
+tests/test_paged_decode.py::test_v2_matches_flashinfer_skewed[dtype0] PASSED
+tests/test_paged_decode.py::test_v2_matches_flashinfer_skewed[dtype1] PASSED
+tests/test_paged_decode.py::test_v2_tree_merge[8-1] PASSED
+tests/test_paged_decode.py::test_v2_tree_merge[28-4] PASSED
+tests/test_paged_decode.py::test_v2_tree_off_below_threshold PASSED
+tests/test_paged_decode.py::test_v2_tree_large_logits PASSED
+tests/test_paged_decode.py::test_v2_tree_matches_flashinfer_long_single_head PASSED
+
+============================== 45 passed in 5.21s ==============================

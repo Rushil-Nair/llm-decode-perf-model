@@ -1,0 +1,81 @@
+{
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "sms": 132,
+ "mem_gb": 79.2,
+ "torch": "2.12.0+cu130",
+ "cuda": "13.0",
+ "copy_gbps": 3036.0505771649828,
+ "flashinfer": "0.7.5.post1",
+ "triton": "3.7.0",
+ "nvidia_smi": "name, driver_version, clocks.current.sm [MHz], clocks.current.memory [MHz], clocks.max.sm [MHz], power.limit [W], temperature.gpu\nNVIDIA H100 80GB HBM3, 580.196.07, 1980 MHz, 2619 MHz, 1980 MHz, 700.00 W, 32"
+}
+B=1   ctx=2048   splits=1         70.6 us      119 GB/s
+B=1   ctx=2048   splits=2         39.6 us      212 GB/s
+B=1   ctx=2048   splits=4         23.9 us      351 GB/s
+B=1   ctx=2048   splits=8  *      16.5 us      509 GB/s
+B=1   ctx=2048   splits=16        13.9 us      607 GB/s
+B=1   ctx=2048   splits=32        13.4 us      627 GB/s
+B=1   ctx=2048   splits=64        15.1 us      558 GB/s
+B=1   ctx=8192   splits=1        268.0 us      125 GB/s
+B=1   ctx=8192   splits=2        134.5 us      250 GB/s
+B=1   ctx=8192   splits=4         71.0 us      473 GB/s
+B=1   ctx=8192   splits=8         40.8 us      822 GB/s
+B=1   ctx=8192   splits=16        28.4 us     1184 GB/s
+B=1   ctx=8192   splits=32 *      23.4 us     1435 GB/s
+B=1   ctx=8192   splits=64        22.5 us     1490 GB/s
+B=1   ctx=32768  splits=1       1036.1 us      130 GB/s
+B=1   ctx=32768  splits=2        501.1 us      268 GB/s
+B=1   ctx=32768  splits=4        247.9 us      542 GB/s
+B=1   ctx=32768  splits=8        131.8 us     1018 GB/s
+B=1   ctx=32768  splits=16        82.1 us     1635 GB/s
+B=1   ctx=32768  splits=32        57.0 us     2354 GB/s
+B=1   ctx=32768  splits=33 *      60.2 us     2229 GB/s
+B=1   ctx=32768  splits=64        54.9 us     2446 GB/s
+B=4   ctx=2048   splits=1         72.3 us      465 GB/s
+B=4   ctx=2048   splits=2         40.2 us      836 GB/s
+B=4   ctx=2048   splits=4         28.4 us     1183 GB/s
+B=4   ctx=2048   splits=8  *      23.1 us     1455 GB/s
+B=4   ctx=2048   splits=16        21.8 us     1545 GB/s
+B=4   ctx=2048   splits=32        22.8 us     1476 GB/s
+B=4   ctx=2048   splits=64        28.3 us     1187 GB/s
+B=4   ctx=8192   splits=1        263.1 us      510 GB/s
+B=4   ctx=8192   splits=2        133.7 us     1004 GB/s
+B=4   ctx=8192   splits=4         83.2 us     1615 GB/s
+B=4   ctx=8192   splits=8         56.7 us     2368 GB/s
+B=4   ctx=8192   splits=9  *      59.3 us     2265 GB/s
+B=4   ctx=8192   splits=16        53.8 us     2495 GB/s
+B=4   ctx=8192   splits=32        56.2 us     2391 GB/s
+B=4   ctx=8192   splits=64        57.9 us     2320 GB/s
+B=4   ctx=32768  splits=1       1014.3 us      529 GB/s
+B=4   ctx=32768  splits=2        500.7 us     1072 GB/s
+B=4   ctx=32768  splits=4        294.3 us     1825 GB/s
+B=4   ctx=32768  splits=8        188.3 us     2852 GB/s
+B=4   ctx=32768  splits=9  *     196.3 us     2736 GB/s
+B=4   ctx=32768  splits=16       181.1 us     2965 GB/s
+B=4   ctx=32768  splits=32       186.6 us     2877 GB/s
+B=4   ctx=32768  splits=64       188.4 us     2849 GB/s
+B=16  ctx=2048   splits=1         85.7 us     1569 GB/s
+B=16  ctx=2048   splits=2         56.8 us     2369 GB/s
+B=16  ctx=2048   splits=3  *      55.6 us     2418 GB/s
+B=16  ctx=2048   splits=4         54.7 us     2460 GB/s
+B=16  ctx=2048   splits=8         55.7 us     2412 GB/s
+B=16  ctx=2048   splits=16        57.5 us     2337 GB/s
+B=16  ctx=2048   splits=32        60.7 us     2214 GB/s
+B=16  ctx=2048   splits=64        83.7 us     1606 GB/s
+B=16  ctx=8192   splits=1        306.9 us     1750 GB/s
+B=16  ctx=8192   splits=2        189.2 us     2838 GB/s
+B=16  ctx=8192   splits=3  *     185.9 us     2889 GB/s
+B=16  ctx=8192   splits=4        182.3 us     2946 GB/s
+B=16  ctx=8192   splits=8        187.7 us     2861 GB/s
+B=16  ctx=8192   splits=16       190.3 us     2823 GB/s
+B=16  ctx=8192   splits=32       193.7 us     2773 GB/s
+B=16  ctx=8192   splits=64       199.3 us     2695 GB/s
+B=16  ctx=32768  splits=1       1170.4 us     1835 GB/s
+B=16  ctx=32768  splits=2        716.4 us     2998 GB/s
+B=16  ctx=32768  splits=3  *     702.8 us     3056 GB/s
+B=16  ctx=32768  splits=4        700.1 us     3068 GB/s
+B=16  ctx=32768  splits=8        710.9 us     3021 GB/s
+B=16  ctx=32768  splits=16       699.1 us     3072 GB/s
+B=16  ctx=32768  splits=32       705.7 us     3044 GB/s
+B=16  ctx=32768  splits=64       717.1 us     2995 GB/s
+wrote 69 rows to /root/llm-decode-perf-model/data/h100_sxm/attention/splits_ps16_float16.jsonl

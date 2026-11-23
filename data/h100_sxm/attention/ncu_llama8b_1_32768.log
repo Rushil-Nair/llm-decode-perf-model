@@ -1,0 +1,33 @@
+==PROF== Connected to process 11282 (/usr/bin/python3.12)
+version 2 settings from /root/v6/llm-decode-perf-model/data/h100_sxm/attention/tuned.json: {'block_n': 128, 'num_warps': 4, 'num_stages': 2, 'split_penalty': 512, 'program_overhead': 256, 'tree_min_chunks': 64}
+==WARNING== Unable to access the following 6 metrics: ctc__rx_bytes_data_user.sum, ctc__rx_bytes_data_user.sum.pct_of_peak_sustained_elapsed, ctc__rx_bytes_data_user.sum.per_second, ctc__tx_bytes_data_user.sum, ctc__tx_bytes_data_user.sum.pct_of_peak_sustained_elapsed, ctc__tx_bytes_data_user.sum.per_second.
+
+
+==PROF== Profiling "_split_kv_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_merge_kernel": 0%....50%....100% - 37 passes
+==PROF== Profiling "_split_kv_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_merge_kernel": 0%....50%....100% - 37 passes
+==PROF== Profiling "_split_kv_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_merge_kernel": 0%....50%....100% - 37 passes
+ran triton_splitkv
+==PROF== Profiling "_balanced_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_merge_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_merge_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_merge_kernel": 0%....50%....100% - 38 passes
+ran triton_balanced
+==PROF== Profiling "_balanced_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_blocked_merge_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_blocked_merge_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_balanced_kernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "_blocked_merge_kernel": 0%....50%....100% - 38 passes
+ran triton_balanced_v2
+==PROF== Profiling "BatchDecodeWithPagedKVCacheKernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "BatchDecodeWithPagedKVCacheKernel": 0%....50%....100% - 38 passes
+==PROF== Profiling "BatchDecodeWithPagedKVCacheKernel": 0%....50%....100% - 38 passes
+ran flashinfer_tc0
+ran flashinfer_tc1
+==PROF== Disconnected from process 11282
+==PROF== Report: /root/v6/llm-decode-perf-model/data/h100_sxm/attention/ncu_llama8b_1_32768.ncu-rep
