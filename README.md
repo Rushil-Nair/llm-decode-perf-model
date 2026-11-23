@@ -17,6 +17,11 @@ Projections are labelled as projections.
 | 3a. Serving, vLLM | time per output token, batch 1–64 | 23.4% (H100), 11.3% (5090) | 8.3% (5090→H100), 23.6% (H100→5090) |
 | 3b. Serving, llama.cpp | throughput gain of a slot-scheduling fix at 4 and 8 users | +4.0 to +5.3% (H100), +7.8 to +20.7% (5090) | n/a |
 
+**Attention kernel (added Nov 2026).** A paged GQA decode-attention kernel in Triton, benchmarked
+against FlashInfer on the H100 across 102 shapes: 1.05x FlashInfer's speed on equal-length batches and
+1.10x on mixed-length ones (geomean; worst shape 0.88x). Details, profiles and caveats in
+[`attn/README.md`](attn/README.md); the attention term it adds to the decode model is scored there too.
+
 ## Level 1: what limits a 4-bit decode GEMV on the H100
 
 `kernels/gemv_sweep.cu` holds hand-written 4-bit GEMV kernels (symmetric int4 in 32-weight groups with an
@@ -244,6 +249,18 @@ cancels most of it. The first version of this
 model built the step from Level 2 op costs, which are not calibrated for Q4_K kernels, and it
 over-predicted the speedup by 31–77% (`results/correlation.md`).
 
+## Paged decode attention
+
+The GEMV levels above cover streaming weights. At long context, decode also streams the whole KV cache
+once per layer, so `attn/` adds a paged GQA decode-attention kernel in Triton (FlashInfer's page-table
+format), benchmarked against FlashInfer and PyTorch SDPA on the H100. Profiling drove three rounds of
+changes: per-request balancing (skewed batches 0.47x to 0.97x of FlashInfer), an occupancy-aware planner
+after Nsight Compute showed the grid filled 0.48 waves, and a two-level merge after it showed the merge
+costing more than the attention at 131k context. Final: 1.05x on equal-length and 1.10x on mixed-length
+batches, with an ablation of each change on shapes kept out of the benchmark. The attention term
+`t = t0 + bytes / BW_eff` predicts the kernel within 3.5% in-sample and 5.1% on unseen head configs.
+Full write-up: [`attn/README.md`](attn/README.md).
+
 ## Automated check loop
 
 `agents/pipeline.py` runs fit → correlate → flag every prediction off by more than 15% and writes a
@@ -258,6 +275,7 @@ then identified that cost as shared-memory bank conflicts plus instruction count
 ```
 kernels/        4-bit GEMV CUDA kernels (q4gemv.cu: v0-v4 + cuBLAS reference; gemv_sweep.cu: v2-v7, occupancy x ILP)
 microarch/      latency / bandwidth probes, SASS instruction counter, Nsight Compute report parser
+attn/           paged GQA decode attention in Triton (uniform, balanced v1, v2), PyTorch reference, write-up
 perfsim/        models: microarch.py + gemv_model.py (L1), v5_prediction.py + kernel_ladder.py (kernel work),
                 ops_model.py (L2), engine.py + slot_pass_model.py (L3)
 bench/          GPU-side benchmarks: run_microarch.sh, run_ncu_deep.sh, ops_bench.py, run_vllm.sh, llamacpp/
@@ -268,7 +286,7 @@ data/           raw measurements per GPU (env, clocks, probes, sweeps, vLLM, lla
 data_kernels/   H100 kernel runs with Nsight Compute (sweeps, per-config counters, full profiles: .ncu-rep + CSV)
 results/        every table above, as markdown and CSV
 figures/        plots generated from results/
-gpu/run_all.sh  single entry point on a rented GPU (about 2 h)
+gpu/run_all.sh  single entry point on a rented GPU (about 2 h); gpu/run_attention.sh for attention (about 20 min)
 ```
 
 ## Reproduce
